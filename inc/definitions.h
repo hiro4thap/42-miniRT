@@ -1,0 +1,89 @@
+#ifndef DEFINITIONS_H
+# define DEFINITIONS_H
+
+# define TRUE 1
+# define FALSE 0
+
+typedef	int t_bool;
+
+# ifndef __linux__
+
+#  define ON_LINUX 0
+
+enum e_keycode
+{
+	KEY_ESC = 53,
+	KEY_LSHIFT = 257,
+	KEY_RSHIFT = 258,
+	KEY_LCTRL = 279,
+	KEY_RCTRL = 269,
+	KEY_LCMD = 259,
+	KEY_RCMD =260,
+	KEY_LALT = 261,
+	KEY_RALT = 262,
+	KEY_TILDE = 50,
+	KEY_ONE = 18,
+	KEY_TWO = 19,
+	KEY_THREE = 20,
+	KEY_FOUR = 21,
+	KEY_FIVE = 23,
+	KEY_SIX = 22,
+	KEY_SEVEN = 26,
+	KEY_EIGHT = 28,
+	KEY_NINE = 25,
+	KEY_ZERO = 29,
+	KEY_PLUS = 24,
+	KEY_MINUS = 27,
+	KEY_RETURN = 36,
+	KEY_UP = 126,
+	KEY_DOWN = 125,
+	KEY_LEFT = 123,
+	KEY_RIGHT = 124
+};
+# else
+
+#  define ON_LINUX 1
+
+enum e_keycode
+{
+	KEY_ESC = 65307,
+	KEY_LSHIFT = 65505,
+	KEY_RSHIFT = 66506,
+	KEY_LCTRL = 66507,
+	KEY_RCTRL = 66508,
+	KEY_LALT = 65513,
+	KEY_RALT = 65514,
+	KEY_TILDE = 96,
+	KEY_ONE = 49,
+	KEY_TWO = 50,
+	KEY_THREE = 51,
+	KEY_FOUR = 52,
+	KEY_FIVE = 53,
+	KEY_SIX = 54,
+	KEY_SEVEN = 55,
+	KEY_EIGHT = 56,
+	KEY_NINE = 57,
+	KEY_ZERO = 29,
+	KEY_PLUS = 61,
+	KEY_MINUS = 45,
+	KEY_RETURN = 65293,
+	KEY_UP = 65362,
+	KEY_DOWN = 65364,
+	KEY_LEFT = 65361,
+	KEY_RIGHT = 65363
+};
+# endif
+
+enum e_mousecode
+{
+	MOUSE_LEFT = 1,
+	MOUSE_MIDDLE,
+	MOUSE_RIGHT,
+	MOUSE_SCROLL_UP,
+	MOUSE_SCROLL_DOWN,
+	MOUSE_BACK = 8,
+	MOUSE_FORWARD
+};
+
+
+#endif
