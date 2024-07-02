@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/02 23:27:09 by jhughes           #+#    #+#             */
+/*   Updated: 2024/07/02 23:27:23 by jhughes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
@@ -16,12 +26,13 @@ typedef struct s_light_ambient
 typedef struct s_camera
 {
 	t_vector	position;
-	t_vector	orientation;
 	t_vector	direction;
+	t_vector	up_axis;
+	t_vector	right_axis;
 	double		fov;
 }	t_camera;
 
-typedef	struct s_light
+typedef struct s_light
 {
 	t_vector	position;
 	double		brightness;

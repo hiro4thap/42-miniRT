@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/02 23:24:44 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/02 23:25:47 by jhughes          ###   ########.fr       */
+/*   Created: 2024/07/02 22:21:07 by jhughes           #+#    #+#             */
+/*   Updated: 2024/07/02 23:22:30 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#include "../inc/miniRT.h"
 
-typedef struct s_color
+void	set_pixel(t_data *data, int x, int y, int color)
 {
-	int	r;
-	int	g;
-	int	b;
-}	t_color;
+	char	*dst;
 
-#endif
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *) dst = color;
+}
+
+int	set_color(t_color col)
+{
+	int	color;
+
+	color = col.b
+		+ (col.g << 8)
+		+ (col.r << 16);
+	return (color);
+}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:23:51 by jhughes           #+#    #+#             */
-/*   Updated: 2024/04/22 14:13:31 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/02 23:26:57 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,32 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
+typedef struct s_viewport
+{
+	int			window_width;
+	int			window_height;
+	t_camera	camera;
+	t_vector	pixel_dx;
+	t_vector	pixel_dy;
+	t_vector	pixel_max;
+}	t_viewport;
 
 typedef struct s_program
 {
-	void	*mlx_pointer;
-	void	*window;
+	void		*mlx_pointer;
+	void		*window;
+	t_viewport	*viewport;
 }	t_program;
 
+// main.c
+t_bool	sphere_intersection(t_sphere sphere, t_vector line);
+
+// render.c
+int		render_frame(t_program *program);
+void	generate_image(t_data *image, t_program *program);
+
+// utils.c
+void	set_pixel(t_data *data, int x, int y, int color);
+int		set_color(t_color col);
 
 #endif

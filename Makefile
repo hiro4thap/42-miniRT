@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+         #
+#    By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/01 22:45:46 by jhughes           #+#    #+#              #
-#    Updated: 2024/04/22 13:40:07 by jhughes          ###   ########.fr        #
+#    Updated: 2024/07/02 23:18:32 by jhughes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC_DIR		= src/
 BONUS_DIR	= bonus/
 O_DIR		= obj/
 
-C_FILES		= main.c vector.c
+C_FILES		= main.c vector.c vector_operations.c vector_helpers.c utils.c \
+				render.c
 O_FILES		= $(C_FILES:.c=.o)
 C_BONUS		= $(addprefix $(BONUS_DIR), $(C_FILES:.c=_bonus.c))
 O_BONUS		= $(C_FILES:.c=_bonus.o) 

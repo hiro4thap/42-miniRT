@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   definitions.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/02 23:26:05 by jhughes           #+#    #+#             */
+/*   Updated: 2024/07/02 23:26:42 by jhughes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DEFINITIONS_H
 # define DEFINITIONS_H
 
 # define TRUE 1
 # define FALSE 0
 
-typedef	int t_bool;
+typedef int	t_bool;
 
 # ifndef __linux__
 
@@ -84,6 +96,5 @@ enum e_mousecode
 	MOUSE_BACK = 8,
 	MOUSE_FORWARD
 };
-
 
 #endif
