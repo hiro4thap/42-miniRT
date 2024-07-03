@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/02 23:28:16 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:01:40 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,21 @@ void	init_camera(t_viewport *viewport)
 static void	init_sphere(t_sphere *sphere)
 {
 	set_vector_components(&sphere->position, 0.0, 0.0, 4.0);
-	sphere->color.b = 0;
-	sphere->color.g = 250;
-	sphere->color.r = 250;
+	sphere->color = set_color(255, 255, 255);
 	sphere->diameter = 2.0;
 }
 
 void	generate_image(t_data *image, t_program *program)
 {
-	t_vector	pixel;
-	t_vector	ray;
-	t_sphere	sphere;
-	int			i;
-	int			j;
+	t_vector		pixel;
+	t_vector		ray;
+	t_sphere		sphere;
+	int				i;
+	int				j;
+	t_light_ambient	ambient;
 
+	ambient.color = set_color(185, 15, 225);
+	ambient.ratio = 1.0;
 	init_sphere(&sphere);
 	init_camera(program->viewport);
 	j = 1;
@@ -83,7 +84,7 @@ void	generate_image(t_data *image, t_program *program)
 					scalar_product(program->viewport->pixel_dy, (j - 1)));
 			ray = normalise(pixel);
 			if (sphere_intersection(sphere, ray))
-				set_pixel(image, i, j, set_color(sphere.color));
+				set_pixel(image, i, j, mix(sphere.color, 1.0, ambient.color, ambient.ratio));
 			i += 1;
 		}
 		j += 1;

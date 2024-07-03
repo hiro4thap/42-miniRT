@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:23:51 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/02 23:26:57 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:00:51 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int		render_frame(t_program *program);
 void	generate_image(t_data *image, t_program *program);
 
 // utils.c
-void	set_pixel(t_data *data, int x, int y, int color);
-int		set_color(t_color col);
+void	set_pixel(t_data *data, int x, int y, t_color color);
 
 #endif

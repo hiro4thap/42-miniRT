@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:25:34 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/02 23:28:02 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/03 12:07:45 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void		print_vector(t_vector a);
 t_vector	scalar_product(t_vector a, double n);
 t_vector	add(t_vector a, t_vector b);
 t_vector	subtract(t_vector a, t_vector b);
+t_vector	multiply(t_vector a, t_vector b);
 t_vector	cross(t_vector a, t_vector b);
 double		dot(t_vector a, t_vector b);
 

@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:22:26 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/02 23:23:11 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:00:25 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ t_vector	subtract(t_vector a, t_vector b)
 	result.z = a.z - b.z;
 	return (result);
 }
+
+// t_vector	multiply(t_vector a, t_vector b)
+// {
+// 	t_vector	result;
+
+// 	result.x = a.x * b.x;
+// 	result.y = a.y * b.y;
+// 	result.z = a.z * b.z;
+// 	return (result);
+// }
 
 t_vector	cross(t_vector a, t_vector b)
 {
