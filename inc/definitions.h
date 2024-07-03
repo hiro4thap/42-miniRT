@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:26:05 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/02 23:26:42 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/03 17:39:23 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # define FALSE 0
 
 typedef int	t_bool;
+
+# define SPECULAR_ON 1
 
 # ifndef __linux__
 

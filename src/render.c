@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/03 15:01:40 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/03 17:32:57 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,26 @@ void	init_camera(t_viewport *viewport)
 static void	init_sphere(t_sphere *sphere)
 {
 	set_vector_components(&sphere->position, 0.0, 0.0, 4.0);
-	sphere->color = set_color(255, 255, 255);
+	sphere->color = set_color(255, 255, 10);
 	sphere->diameter = 2.0;
 }
 
 void	generate_image(t_data *image, t_program *program)
 {
 	t_vector		pixel;
-	t_vector		ray;
+	t_incident_ray	ray;
 	t_sphere		sphere;
 	int				i;
 	int				j;
 	t_light_ambient	ambient;
+	t_light			light;
+	t_color			pixel_color;
 
+	light.color = set_color(255, 255, 255);
+	light.brightness = 0.8;
+	set_vector_components(&light.position, 2.0, 5.0, 4.0);
 	ambient.color = set_color(185, 15, 225);
-	ambient.ratio = 1.0;
+	ambient.ratio = 0.2;
 	init_sphere(&sphere);
 	init_camera(program->viewport);
 	j = 1;
@@ -82,9 +87,13 @@ void	generate_image(t_data *image, t_program *program)
 			pixel = add(add(program->viewport->pixel_max,
 						scalar_product(program->viewport->pixel_dx, (i - 1))),
 					scalar_product(program->viewport->pixel_dy, (j - 1)));
-			ray = normalise(pixel);
-			if (sphere_intersection(sphere, ray))
-				set_pixel(image, i, j, mix(sphere.color, 1.0, ambient.color, ambient.ratio));
+			ray.ray = normalise(pixel);
+			if (sphere_intersection(sphere, program->viewport->camera, &ray))
+			{
+				pixel_color = color_multiply(sphere.color,
+						get_light(&ray, &ambient, &light));
+				set_pixel(image, i, j, pixel_color);
+			}
 			i += 1;
 		}
 		j += 1;

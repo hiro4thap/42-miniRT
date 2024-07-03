@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:24:44 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/03 15:01:09 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/03 17:57:03 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,17 @@ typedef struct s_color
 	double	b;
 }	t_color;
 
-int		get_red(t_color *color);
-int		get_green(t_color *color);
-int		get_blue(t_color *color);
+// color.c
 
-t_color	set_color(unsigned char r, unsigned char g, unsigned char b);
-t_color	mix(t_color color_a, double a_ratio, t_color color_b, double b_ratio);
+unsigned char	get_red(t_color *color);
+unsigned char	get_green(t_color *color);
+unsigned char	get_blue(t_color *color);
+t_color			set_color(unsigned char r, unsigned char g, unsigned char b);
+
+// color_operations.c
+
+t_color			color_proportion(t_color color, double ratio);
+t_color			color_add(t_color color_a, t_color color_b);
+t_color			color_multiply(t_color color_a, t_color color_b);
 
 #endif

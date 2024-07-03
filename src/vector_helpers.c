@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:23:29 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/02 23:23:29 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/03 16:55:45 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,9 @@ double	magnitude(t_vector a)
 double	angle_between(t_vector a, t_vector b)
 {
 	return (acos(dot(a, b) / (magnitude(a) * magnitude(b))));
+}
+
+t_vector	vector_in_direction(t_vector from, t_vector to)
+{
+	return (subtract(to, from));
 }

@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:25:34 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/03 12:07:45 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:15:43 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ t_bool		equal(t_vector a, t_vector b);
 t_vector	normalise(t_vector a);
 double		magnitude(t_vector a);
 double		angle_between(t_vector a, t_vector b);
+t_vector	vector_in_direction(t_vector from, t_vector to);
 
 #endif

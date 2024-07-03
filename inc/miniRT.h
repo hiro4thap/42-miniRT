@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:23:51 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/03 15:00:51 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/03 17:33:30 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,24 @@ typedef struct s_program
 	t_viewport	*viewport;
 }	t_program;
 
+typedef struct s_incident_ray
+{
+	t_vector	ray;
+	t_vector	incident_point;
+	t_vector	surface_normal;
+}	t_incident_ray;
+
 // main.c
-t_bool	sphere_intersection(t_sphere sphere, t_vector line);
+t_bool	sphere_intersection(t_sphere sphere, t_camera camera,
+			t_incident_ray *ray);
 
 // render.c
 int		render_frame(t_program *program);
 void	generate_image(t_data *image, t_program *program);
+
+// light.c
+t_color	get_light(t_incident_ray *ray,
+			t_light_ambient *light_ambient, t_light *light);
 
 // utils.c
 void	set_pixel(t_data *data, int x, int y, t_color color);
