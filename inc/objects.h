@@ -75,4 +75,9 @@ typedef struct s_cylinder
 	t_color		color;
 }	t_cylinder;
 
+double	to_sphere_intersection(t_sphere sphere, t_vector origin, t_vector line);
+double	to_plane_intersection(t_plane plane, t_vector origin, t_vector line);
+double	to_cylinder_intersection(t_cylinder cylinder, t_vector origin,
+			t_vector line);
+
 #endif
