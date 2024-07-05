@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:23:51 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/03 17:33:30 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/05 12:24:16 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ typedef struct s_incident_ray
 }	t_incident_ray;
 
 // main.c
-t_bool	sphere_intersection(t_sphere sphere, t_camera camera,
-			t_incident_ray *ray);
+t_bool	get_intersection(t_object *o, t_camera *camera, t_incident_ray *ray);
 
 // render.c
 int		render_frame(t_program *program);
@@ -75,4 +74,7 @@ t_color	get_light(t_incident_ray *ray,
 // utils.c
 void	set_pixel(t_data *data, int x, int y, t_color color);
 
+// hooks.c
+int		input(int key, t_program *program);
+int		exit_program(t_program *program);
 #endif

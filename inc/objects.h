@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:27:09 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/02 23:27:23 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/05 12:18:14 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@
 # include "definitions.h"
 # include "vector.h"
 # include "color.h"
+
+enum e_objects
+{
+	SPHERE,
+	PLANE,
+	CYLINDER
+};
+
+typedef struct s_object
+{
+	enum e_objects	type;
+	void			*object;
+}	t_object;
 
 typedef struct s_light_ambient
 {

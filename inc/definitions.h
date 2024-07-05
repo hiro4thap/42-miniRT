@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   definitions.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:26:05 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/03 17:39:23 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/05 12:28:40 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,59 @@ enum e_mousecode
 	MOUSE_SCROLL_DOWN,
 	MOUSE_BACK = 8,
 	MOUSE_FORWARD
+};
+
+// From X.h
+enum e_event_type
+{
+	EVENT_KEY_PRESS = 2,
+	EVENT_KEY_RELEASE,
+	EVENT_BUTTON_PRESS,
+	EVENT_BUTTON_RELEASE,
+	EVENT_MOTION_NOTIFY,
+	EVENT_ENTER_NOTIFY,
+	EVENT_LEAVE_NOTIFY,
+	EVENT_FOCUS_IN,
+	EVENT_FOCUS_OUT,
+	EVENT_KEYMAP_NOTIFY,
+	EVENT_VISIBILITY_NOTIFY = 15,
+	EVENT_CREATE_NOTIFY,
+	EVENT_DESTROY_NOTIFY,
+	EVENT_CONFIGURE_NOTIFY = 22,
+	EVENT_CONFIGURE_REQUEST,
+	EVENT_GRAVITY_NOTIFY,
+	EVENT_RESIZE_REQUEST
+};
+
+# define EVENT_MASK_NO_EVENT 0
+
+enum e_event_mask
+{
+	EVENT_MASK_KEY_PRESS,
+	EVENT_MASK_KEY_RELEASE,
+	EVENT_MASK_BUTTON_PRESS,
+	EVENT_MASK_BUTTON_RELEASE,
+	EVENT_MASK_ENTER_WINDOW,
+	EVENT_MASK_LEAVE_WINDOW,
+	EVENT_MASK_POINTER_MOTION,
+	EVENT_MASK_POINTER_MOTION_HINT,
+	EVENT_MASK_BUTTON_1,
+	EVENT_MASK_BUTTON_2,
+	EVENT_MASK_BUTTON_3,
+	EVENT_MASK_BUTTON_4,
+	EVENT_MASK_BUTTON_5,
+	EVENT_MASK_BUTTON_MOTION,
+	EVENT_MASK_KEYMAP_STATE,
+	EVENT_MASK_EXPOSURE,
+	EVENT_MASK_VISIBILITY_CHANGE,
+	EVENT_MASK_STRUCTURE_NOTIFY,
+	EVENT_MASK_RESIZE_REDIRECT,
+	EVENT_MASK_SUBSTRUCTURE_NOTIFY,
+	EVENT_MASK_SUBSTRUCTURE_REDIRECT,
+	EVENT_MASK_FOCUS_CHANGE,
+	EVENT_MASK_PROPERTY_CHANGE,
+	EVENT_MASK_COLORMAP_CHANGE,
+	EVENT_MASK_OWNER_GRAB_BUTTON
 };
 
 #endif
