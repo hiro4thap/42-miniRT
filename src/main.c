@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:24:10 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 12:28:19 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/05 17:33:40 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,23 @@
 t_bool	sphere_intersection(t_sphere *sphere, t_camera *camera,
 	t_incident_ray *ray)
 {
-	double	grad;
-	double	distance;
+	double		grad;
+	double		distance;
+	double		alt_distance;
+	t_vector	cam_sphere_dif;
 
-	grad = pow(
-			dot(ray->ray, subtract(camera->position, sphere->position)), 2.0)
-		- (pow(magnitude(subtract(camera->position, sphere->position)), 2.0)
+	cam_sphere_dif = subtract(camera->position, sphere->position);
+	grad = pow(dot(ray->ray, cam_sphere_dif), 2.0)
+		- (pow(magnitude(cam_sphere_dif), 2.0)
 			- pow((sphere->diameter / 2.0), 2.0));
 	if (grad < 0)
 		return (FALSE);
-	distance = -(dot(ray->ray, subtract(camera->position, sphere->position)))
-		+ grad;
+	distance = -(dot(ray->ray, cam_sphere_dif));
+	alt_distance = distance + sqrt(grad);
+	distance -= sqrt(grad);
+	distance = min(max(distance, 0), max(alt_distance, 0));
+	if (distance <= 0)
+		return (FALSE);
 	ray->incident_point = add(camera->position,
 			scalar_product(ray->ray, distance));
 	ray->surface_normal = normalise(
@@ -62,10 +68,11 @@ int	main(int argc, char *argv[])
 
 	(void) argc;
 	(void) argv;
-	program.mlx_pointer = mlx_init();
-	program.window = mlx_new_window(program.mlx_pointer, 640, 480, "miniRT");
-	viewport.window_height = 480;
 	viewport.window_width = 640;
+	viewport.window_height = 480;
+	program.mlx_pointer = mlx_init();
+	program.window = mlx_new_window(program.mlx_pointer, viewport.window_width,
+			viewport.window_height, "miniRT");
 	program.viewport = &viewport;
 	mlx_key_hook(program.window, &input, &program);
 	mlx_hook(program.window, EVENT_DESTROY_NOTIFY, 0, &exit_program, &program);

@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:23:51 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 12:24:16 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/05 17:28:39 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_viewport
 	t_camera	camera;
 	t_vector	pixel_dx;
 	t_vector	pixel_dy;
-	t_vector	pixel_max;
+	t_vector	pixel_start;
 }	t_viewport;
 
 typedef struct s_program
@@ -73,8 +73,13 @@ t_color	get_light(t_incident_ray *ray,
 
 // utils.c
 void	set_pixel(t_data *data, int x, int y, t_color color);
+double	max(double a, double b);
+double	min(double a, double b);
 
 // hooks.c
 int		input(int key, t_program *program);
 int		exit_program(t_program *program);
+
+t_color	*get_color(t_object *object);
+
 #endif

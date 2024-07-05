@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:56:20 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/03 18:07:43 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/05 14:39:52 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_color	get_difuse(t_incident_ray *ray, t_light *light)
 
 	light_direction = normalise(
 			vector_in_direction(light->position, ray->incident_point));
-	diffuse_proportion = dot(ray->surface_normal, light_direction);
+	diffuse_proportion = -dot(ray->surface_normal, light_direction);
 	if (diffuse_proportion < 0.0)
 		diffuse_proportion = 0.0;
 	result = color_proportion(light->color,
