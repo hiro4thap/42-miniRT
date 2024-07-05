@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:41:39 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/04 19:15:31 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/05 18:01:19 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,41 +22,182 @@ typedef struct s_objects
 	t_cylinder		*cylinder;
 }		t_objects;
 
+int	read_double(const char *line, double *data)
+{
+	int		index;
+	int		index_dot;
+	double	value;
+	int		sign;
+
+	index = 0;
+	value = 0;
+	sign = 1;
+	if (line[index] == '-')
+	{
+		index++;
+		sign = -1;
+	}
+	while (ft_isdigit(line[index]))
+		value = 10 * value + line[index++] - '0';
+	if (line[index] == '.')
+	{
+		index_dot = index;
+		while (ft_isdigit(line[++index]))
+			value += (line[index] - '0') * pow(10, index_dot - index);
+	}
+	*data = sign * value;
+	return (index);
+}
 
 int	read_RGB(const char *rgb, t_color *color)
 {
-	int	i;
-	int	value;
+	int		index;
+	int		itr;
+	double	value;
 
-	i = 0;
-	while (i < 3)
+	index = 0;
+	itr = 0;
+	while (itr < 3)
 	{
-		if (*rgb == ',')
-			rgb++;
+		if (rgb[index] == ',')
+			index++;
 		value = 0;
-		while (ft_isdigit(*rgb))
-		{
-			value = 10 * value + *rgb - '0';
-			rgb++;
-		}
-		if (i == 0)
+		index += read_double(rgb, &value);
+		if (itr == 0)
 			color->r = value;
-		else if (i == 1)
+		else if (itr == 1)
 			color->g = value;
-		else if (i == 2)
+		else if (itr == 2)
 			color->b = value;
-		i++;
+		itr++;
 	}
-	return (EXIT_SUCCESS);
+	return (index);
+}
+
+int	read_coordinate(const char *coordinate, t_vector *data)
+{
+	int	index;
+	int	itr;
+
+	index = 0;
+	itr = 0;
+	while (itr < 3)
+	{
+		if (coordinate[index] == ',')
+			index++;
+		if (itr == 0)
+			index += read_double(&coordinate[index], &data->x);
+		else if (itr == 1)
+			index += read_double(&coordinate[index], &data->y);
+		else if (itr == 2)
+			index += read_double(&coordinate[index], &data->y);
+		itr++;
+	}
+	return (index);
 }
 
 // TODO:implement functions
-int	input_light_ambient(const char *line, t_light_ambient *light_ambient);
-int	input_camera(const char *line, t_camera *camera);
-int	input_light(const char *line, t_light *light);
-int	input_sphere(const char *line, t_sphere *sphere);
-int	input_plane(const char *line, t_plane *plane);
-int	input_cylinder(const char *line, t_cylinder *cylinder);
+int	input_light_ambient(const char *line, t_light_ambient *light_ambient)
+{
+	int	index;
+
+	index = 1;
+	while (line[index] == ' ')
+		index++;
+	index += read_double(&line[index], &light_ambient->ratio);
+	while (line[index] == ' ')
+		index++;
+	index += read_RGB(&line[index], &light_ambient->color);
+	return (EXIT_SUCCESS);
+}
+
+int	input_camera(const char *line, t_camera *camera)
+{
+	int	index;
+
+	index = 1;
+	while (line[index] == ' ')
+		index++;
+	index += read_coordinate(&line[index], &camera->position);
+	while (line[index] == ' ')
+		index++;
+	index += read_coordinate(&line[index], &camera->orientation);
+	while (line[index] == ' ')
+		index++;
+	index += read_coordinate(&line[index], &camera->direction);
+	return (EXIT_SUCCESS);
+}
+
+int	input_light(const char *line, t_light *light)
+{
+	int	index;
+
+	index = 1;
+	while (line[index] == ' ')
+		index++;
+	index += read_coordinate(&line[index], &light->position);
+	while (line[index] == ' ')
+		index++;
+	index += read_double(&line[index], &light->brightness);
+	return (EXIT_SUCCESS);
+}
+
+int	input_sphere(const char *line, t_sphere *sphere)
+{
+	int	index;
+
+	index = 2;
+	while (line[index] == ' ')
+		index++;
+	index += read_coordinate(&line[index], &sphere->position);
+	while (line[index] == ' ')
+		index++;
+	index += read_double(&line[index], &sphere->diameter);
+	while (line[index] == ' ')
+		index++;
+	index += read_RGB(&line[index], &sphere->color);
+	return (EXIT_SUCCESS);
+}
+
+int	input_plane(const char *line, t_plane *plane)
+{
+	int	index;
+
+	index = 2;
+	while (line[index] == ' ')
+		index++;
+	index += read_coordinate(&line[index], &plane->position);
+	while (line[index] == ' ')
+		index++;
+	index += read_coordinate(&line[index], &plane->normal);
+	while (line[index] == ' ')
+		index++;
+	index += read_RGB(&line[index], &plane->color);
+	return (EXIT_SUCCESS);
+}
+
+int	input_cylinder(const char *line, t_cylinder *cylinder)
+{
+	int	index;
+
+	index = 2;
+	while (line[index] == ' ')
+		index++;
+	index += read_coordinate(&line[index], &cylinder->position);
+	while (line[index] == ' ')
+		index++;
+	index += read_coordinate(&line[index], &cylinder->rotation);
+	while (line[index] == ' ')
+		index++;
+	index += read_double(&line[index], &cylinder->diameter);
+	while (line[index] == ' ')
+		index++;
+	index += read_double(&line[index], &cylinder->height);
+	while (line[index] == ' ')
+		index++;
+	index += read_RGB(&line[index], &cylinder->color);
+	return (EXIT_SUCCESS);
+}
 
 int	read_content(const char *line, t_objects *objects)
 {
