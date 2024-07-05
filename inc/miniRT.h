@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:23:51 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 17:28:39 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/05 23:26:58 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@ typedef struct s_viewport
 
 typedef struct s_program
 {
-	void		*mlx_pointer;
-	void		*window;
-	t_viewport	*viewport;
+	void			*mlx_pointer;
+	void			*window;
+	t_viewport		*viewport;
+	t_object		**objects;
+	t_light			**lights;
+	t_light_ambient	ambient;
 }	t_program;
 
 typedef struct s_incident_ray
@@ -61,7 +64,8 @@ typedef struct s_incident_ray
 }	t_incident_ray;
 
 // main.c
-t_bool	get_intersection(t_object *o, t_camera *camera, t_incident_ray *ray);
+t_bool	get_intersection(t_object *o, t_camera *camera,
+			t_incident_ray *ray);
 
 // render.c
 int		render_frame(t_program *program);
@@ -69,7 +73,7 @@ void	generate_image(t_data *image, t_program *program);
 
 // light.c
 t_color	get_light(t_incident_ray *ray,
-			t_light_ambient *light_ambient, t_light *light);
+			t_light_ambient *light_ambient, t_light **lights);
 
 // utils.c
 void	set_pixel(t_data *data, int x, int y, t_color color);
@@ -81,5 +85,10 @@ int		input(int key, t_program *program);
 int		exit_program(t_program *program);
 
 t_color	*get_color(t_object *object);
+
+// load_scene.c
+void	load_lights(t_program *program);
+void	get_objects(t_program *program);
+void	init_camera(t_program *program);
 
 #endif

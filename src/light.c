@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:56:20 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 14:39:52 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/05 22:55:35 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,25 @@ static t_color	get_specular(t_incident_ray *ray, t_light *light)
 /// @param light A point light source.
 /// @return The combined color component.
 t_color	get_light(t_incident_ray *ray,
-		t_light_ambient *light_ambient, t_light *light)
+		t_light_ambient *light_ambient, t_light **lights)
 {
 	t_color	ambient;
 	t_color	difuse;
 	t_color	specular;
+	t_color	light;
 	t_color	result;
 
 	ambient = color_proportion(light_ambient->color, light_ambient->ratio);
-	difuse = get_difuse(ray, light);
-	specular = set_color(0, 0, 0);
-	if (SPECULAR_ON)
-		specular = get_specular(ray, light);
-	result = color_add(color_add(ambient, difuse), specular);
+	while (*lights)
+	{
+		difuse = get_difuse(ray, *lights);
+		specular = set_color(0, 0, 0);
+		if (SPECULAR_ON)
+			specular = get_specular(ray, *lights);
+		light = color_add(color_add(ambient, difuse), specular);
+		result = color_add(result, light);
+		lights++;
+	}
+	result = color_add(result, ambient);
 	return (result);
 }
