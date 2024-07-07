@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:27:09 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 12:18:14 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/07 17:50:41 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,19 @@ typedef struct s_cylinder
 	t_color		color;
 }	t_cylinder;
 
-double	to_sphere_intersection(t_sphere sphere, t_vector origin, t_vector line);
-double	to_plane_intersection(t_plane plane, t_vector origin, t_vector line);
-double	to_cylinder_intersection(t_cylinder cylinder, t_vector origin,
-			t_vector line);
+// sphere.c
+double		to_sphere_intersection(t_sphere *sphere, t_vector origin,
+				t_vector line);
+t_vector	sphere_normal(t_sphere *sphere, t_vector incident_point);
+
+// plane.c
+double		to_plane_intersection(t_plane *plane, t_vector origin,
+				t_vector line);
+t_vector	plane_normal(t_plane *plane, t_vector ray);
+
+// cylinder.c
+double		to_cylinder_intersection(t_cylinder *cylinder, t_vector origin,
+				t_vector line);
+t_vector	cylinder_normal(t_cylinder *cylinder, t_vector incident_point);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:24:10 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 17:33:40 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/07 17:47:59 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,32 @@ t_bool	sphere_intersection(t_sphere *sphere, t_camera *camera,
 }
 
 /// @brief Provided an object, calls the appropriate intersection function and
-/// returns the value. 
+/// returns the distance to the objects. 
 /// @param o An object containing a void pointer and an enum type.
-/// @param camera The camera attached to the viewport.
-/// @param ray The ray from the camera origin through a pixel to the object.
-/// @return TRUE if ray intersects the object, with point of intersection and
-/// normal set in the ray object. FALSE otherwise.
-t_bool	get_intersection(t_object *o, t_camera *camera, t_incident_ray *ray)
+/// @param origin The origin of ray.
+/// @param ray The ray from origin through a pixel to the object.
+/// @return distance to the object if ray intersects the object,
+/// with point of intersection and normal set in the ray object. -1 otherwise.
+double	to_intersection(t_object *o, t_vector origin, t_vector ray)
 {
 	if (o->type == SPHERE)
-		return (sphere_intersection((t_sphere *) o->object, camera, ray));
-	return (FALSE);
+		return (to_sphere_intersection((t_sphere *) o->object, origin, ray));
+	else if (o->type == PLANE)
+		return (to_plane_intersection((t_plane *) o->object, origin, ray));
+	else if (o->type == CYLINDER)
+		return (
+			to_cylinder_intersection((t_cylinder *) o->object, origin, ray));
+	return (-1);
+}
+
+t_vector	find_normal(t_object *o, t_vector incident_point, t_vector ray)
+{
+	if (o->type == SPHERE)
+		return (sphere_normal((t_sphere *) o->object, incident_point));
+	else if (o->type == PLANE)
+		return (plane_normal((t_plane *) o->object, ray));
+	else
+		return (cylinder_normal((t_cylinder *) o->object, incident_point));
 }
 
 int	main(int argc, char *argv[])

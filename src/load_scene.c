@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 22:55:49 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 23:26:40 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/07 17:33:52 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	load_lights(t_program *program)
 /// @return Object array pointer.
 void	get_objects(t_program *program)
 {
-	const int	num_of_objects = 2;
+	const int	num_of_objects = 4;
 	t_object	**objects;
 
 	objects = malloc(sizeof(t_object *) * (num_of_objects + 1));
@@ -59,8 +59,33 @@ void	get_objects(t_program *program)
 	((t_sphere *) objects[0]->object)->diameter = 3;
 	set_vector_components(&((t_sphere *) objects[0]->object)->position,
 		0.0, 6.0, 0.0);
-	objects[1] = NULL;
-	objects[2] = NULL;
+	objects[1] = malloc(sizeof(t_object));
+	if (!objects[1])
+		return ;
+	objects[1]->type = PLANE;
+	objects[1]->object = malloc(sizeof(t_plane));
+	if (!objects[1]->object)
+		return ;
+	((t_plane *) objects[1]->object)->color = set_color(255, 255, 255);
+	set_vector_components(&((t_plane *) objects[1]->object)->normal,
+		1.0, 1.0, 0.0);
+	set_vector_components(&((t_plane *) objects[1]->object)->position,
+		0.0, 6.0, 0.0);
+	objects[2] = malloc(sizeof(t_object));
+	if (!objects[2])
+		return ;
+	objects[2]->type = CYLINDER;
+	objects[2]->object = malloc(sizeof(t_cylinder));
+	if (!objects[2]->object)
+		return ;
+	((t_cylinder *) objects[2]->object)->color = set_color(0, 0, 255);
+	((t_cylinder *) objects[2]->object)->diameter = 2;
+	((t_cylinder *) objects[2]->object)->height = 4;
+	set_vector_components(&((t_cylinder *) objects[2]->object)->rotation,
+		0.0, 0.0, 1.0);
+	set_vector_components(&((t_cylinder *) objects[2]->object)->position,
+		-3.0, 5.0, 1.0);
+	objects[3] = NULL;
 	program->objects = objects;
 }
 

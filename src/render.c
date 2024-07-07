@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 23:23:36 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/07 17:40:58 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,36 @@ void	generate_pixel(t_data *image, int i, int j, t_program *program)
 	t_color			pixel_color;
 	t_incident_ray	ray;
 	int				o;
+	double			distance;
+	double			min_distance;
 
-	pixel = subtract(add(program->viewport->pixel_start,
+	pixel = subtract(subtract(add(program->viewport->pixel_start,
 				scalar_product(program->viewport->pixel_dx, i)),
-			scalar_product(program->viewport->pixel_dy, j));
+			scalar_product(program->viewport->pixel_dy, j)),
+		program->viewport->camera.position);
 	ray.ray = normalise(pixel);
+	distance = -1;
+	min_distance = -1;
 	o = 0;
 	while (program->objects[o] != NULL)
 	{
-		if (get_intersection(program->objects[o],
-				&program->viewport->camera, &ray))
+		distance = to_intersection(program->objects[o],
+				program->viewport->camera.position, ray.ray);
+		if (0 < distance && (min_distance == -1 || distance < min_distance))
 		{
-			pixel_color = color_multiply(
-					*get_color(program->objects[o]),
-					get_light(&ray, &program->ambient, program->lights));
-			set_pixel(image, i, j, pixel_color);
+			min_distance = distance;
+			ray.incident_point = scalar_product(ray.ray, distance);
+			ray.surface_normal = find_normal(program->objects[o],
+				ray.incident_point, ray.ray);
+			ray.object_color = *get_color(program->objects[o]);
 		}
 		o += 1;
+	}
+	if (0 < min_distance)
+	{
+		pixel_color = color_multiply(ray.object_color,
+			get_light(&ray, &program->ambient, program->lights));
+		set_pixel(image, i, j, pixel_color);
 	}
 }
 
