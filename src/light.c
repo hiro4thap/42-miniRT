@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:56:20 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 22:55:35 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:15:56 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_color	get_light(t_incident_ray *ray,
 	t_color	result;
 
 	ambient = color_proportion(light_ambient->color, light_ambient->ratio);
+	result = set_color(0, 0, 0);
 	while (*lights)
 	{
 		difuse = get_difuse(ray, *lights);
