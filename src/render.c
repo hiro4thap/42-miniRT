@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/10 16:37:48 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/10 18:14:46 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ t_color	*get_color(t_object *object)
 {
 	if (object->type == SPHERE)
 		return (&((t_sphere *) object->object)->color);
-	if (object->type == CYLINDER)
-		return (&((t_cylinder *) object->object)->color);
 	if (object->type == PLANE)
+		return (&((t_plane *) object->object)->color);
+	if (object->type == CYLINDER)
 		return (&((t_cylinder *) object->object)->color);
 	return (NULL);
 }
