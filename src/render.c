@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/07 17:40:58 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/10 16:37:48 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,10 @@ void	generate_image(t_data *image, t_program *program)
 	int	i;
 	int	j;
 
-	get_objects(program);
-	load_lights(program);
-	init_camera(program);
+	//get_objects(program);
+	//load_lights(program);
+	//init_camera(program);
+	read_file("test.rt", program);
 	j = 0;
 	while (j < program->viewport->window_height)
 	{

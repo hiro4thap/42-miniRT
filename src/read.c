@@ -6,21 +6,11 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:41:39 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/05 18:01:19 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/10 17:27:59 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
-
-typedef struct s_objects
-{
-	t_light_ambient	*light_ambient;
-	t_camera		*camera;
-	t_light			*light;
-	t_sphere		*sphere;
-	t_plane			*plane;
-	t_cylinder		*cylinder;
-}		t_objects;
 
 int	read_double(const char *line, double *data)
 {
@@ -32,6 +22,8 @@ int	read_double(const char *line, double *data)
 	index = 0;
 	value = 0;
 	sign = 1;
+	while (line[index] == ' ')
+		index++;
 	if (line[index] == '-')
 	{
 		index++;
@@ -49,7 +41,7 @@ int	read_double(const char *line, double *data)
 	return (index);
 }
 
-int	read_RGB(const char *rgb, t_color *color)
+int	read_rgb(const char *rgb, t_color *color)
 {
 	int		index;
 	int		itr;
@@ -57,18 +49,20 @@ int	read_RGB(const char *rgb, t_color *color)
 
 	index = 0;
 	itr = 0;
+	while (rgb[index] == ' ')
+		index++;
 	while (itr < 3)
 	{
 		if (rgb[index] == ',')
 			index++;
 		value = 0;
-		index += read_double(rgb, &value);
+		index += read_double(&rgb[index], &value);
 		if (itr == 0)
-			color->r = value;
+			color->r = (double) value / 255.0;
 		else if (itr == 1)
-			color->g = value;
+			color->g = (double) value / 255.0;
 		else if (itr == 2)
-			color->b = value;
+			color->b = (double) value / 255.0;
 		itr++;
 	}
 	return (index);
@@ -81,6 +75,8 @@ int	read_coordinate(const char *coordinate, t_vector *data)
 
 	index = 0;
 	itr = 0;
+	while (coordinate[index] == ' ')
+		index++;
 	while (itr < 3)
 	{
 		if (coordinate[index] == ',')
@@ -90,151 +86,183 @@ int	read_coordinate(const char *coordinate, t_vector *data)
 		else if (itr == 1)
 			index += read_double(&coordinate[index], &data->y);
 		else if (itr == 2)
-			index += read_double(&coordinate[index], &data->y);
+			index += read_double(&coordinate[index], &data->z);
 		itr++;
 	}
 	return (index);
 }
 
-// TODO:implement functions
 int	input_light_ambient(const char *line, t_light_ambient *light_ambient)
 {
 	int	index;
 
-	index = 1;
-	while (line[index] == ' ')
-		index++;
+	index = ft_strlen("A");
 	index += read_double(&line[index], &light_ambient->ratio);
-	while (line[index] == ' ')
-		index++;
-	index += read_RGB(&line[index], &light_ambient->color);
+	index += read_rgb(&line[index], &light_ambient->color);
 	return (EXIT_SUCCESS);
 }
 
-int	input_camera(const char *line, t_camera *camera)
+int	input_camera(const char *line, t_camera *camera, t_program *program)
 {
-	int	index;
+	t_vector		up;
+	int				index;
+	double			half_view_x;
+	double			half_view_y;
 
-	index = 1;
-	while (line[index] == ' ')
-		index++;
+	index = ft_strlen("C");
 	index += read_coordinate(&line[index], &camera->position);
-	while (line[index] == ' ')
-		index++;
-	index += read_coordinate(&line[index], &camera->orientation);
-	while (line[index] == ' ')
-		index++;
 	index += read_coordinate(&line[index], &camera->direction);
+	index += read_double(&line[index], &camera->fov);
+	set_vector_components(&up, 0.0, 0.0, 1.0);
+	camera->right_axis = normalise(cross(camera->direction, up));
+	camera->up_axis = normalise(cross(camera->right_axis, camera->direction));
+	half_view_x = tan(camera->fov * M_PI / 180.0 / 2.0);
+	half_view_y = half_view_x * ((double)(program->viewport->window_height - 1))
+		/ ((double)(program->viewport->window_width - 1));
+	program->viewport->pixel_dx = scalar_product(camera->right_axis,
+			(2.0 * half_view_x)
+			/ ((double)(program->viewport->window_width - 1)));
+	program->viewport->pixel_dy = scalar_product(camera->up_axis,
+			(2.0 * half_view_y)
+			/ ((double)(program->viewport->window_height - 1)));
+	program->viewport->pixel_start = add(subtract(camera->direction,
+				scalar_product(camera->right_axis, half_view_x)),
+			scalar_product(camera->up_axis, half_view_y));
 	return (EXIT_SUCCESS);
 }
 
-int	input_light(const char *line, t_light *light)
+int	input_light(const char *line, t_light **lights, int light_index)
 {
-	int	index;
+	t_light	*light;
+	int		index;
 
-	index = 1;
-	while (line[index] == ' ')
-		index++;
+	lights[light_index] = malloc(sizeof(t_light));
+	light = lights[light_index];
+	if (!light)
+		return (EXIT_FAILURE);
+	index = ft_strlen("L");
 	index += read_coordinate(&line[index], &light->position);
-	while (line[index] == ' ')
-		index++;
 	index += read_double(&line[index], &light->brightness);
+	light->color = set_color(255, 255, 255);
 	return (EXIT_SUCCESS);
 }
 
-int	input_sphere(const char *line, t_sphere *sphere)
+int	input_sphere(const char *line, t_object **objects, int object_index)
+{
+	int			index;
+
+	objects[object_index] = malloc(sizeof(t_object));
+	if (!objects[object_index])
+		return (EXIT_FAILURE);
+	objects[object_index]->type = SPHERE;
+	objects[object_index]->object = malloc(sizeof(t_sphere));
+	if (!objects[object_index]->object)
+		return (EXIT_FAILURE);
+	index = ft_strlen("sp");
+	index += read_coordinate(&line[index],
+			&((t_sphere *) objects[object_index]->object)->position);
+	index += read_double(&line[index],
+			&((t_sphere *) objects[object_index]->object)->diameter);
+	index += read_rgb(&line[index],
+			&((t_sphere *) objects[object_index]->object)->color);
+	return (EXIT_SUCCESS);
+}
+
+int	input_plane(const char *line, t_object **objects, int object_index)
 {
 	int	index;
 
-	index = 2;
-	while (line[index] == ' ')
-		index++;
-	index += read_coordinate(&line[index], &sphere->position);
-	while (line[index] == ' ')
-		index++;
-	index += read_double(&line[index], &sphere->diameter);
-	while (line[index] == ' ')
-		index++;
-	index += read_RGB(&line[index], &sphere->color);
+	objects[object_index] = malloc(sizeof(t_object));
+	if (!objects[object_index])
+		return (EXIT_FAILURE);
+	objects[object_index]->type = PLANE;
+	objects[object_index]->object = malloc(sizeof(t_plane));
+	if (!objects[object_index]->object)
+		return (EXIT_FAILURE);
+	index = ft_strlen("pl");
+	index += read_coordinate(&line[index], &((t_plane *) objects[object_index]->object)->position);
+	index += read_coordinate(&line[index], &((t_plane *) objects[object_index]->object)->normal);
+	index += read_rgb(&line[index], &((t_plane *) objects[object_index]->object)->color);
 	return (EXIT_SUCCESS);
 }
 
-int	input_plane(const char *line, t_plane *plane)
+int	input_cylinder(const char *line, t_object **objects, int object_index)
 {
 	int	index;
 
-	index = 2;
-	while (line[index] == ' ')
-		index++;
-	index += read_coordinate(&line[index], &plane->position);
-	while (line[index] == ' ')
-		index++;
-	index += read_coordinate(&line[index], &plane->normal);
-	while (line[index] == ' ')
-		index++;
-	index += read_RGB(&line[index], &plane->color);
+	objects[object_index] = malloc(sizeof(t_object));
+	if (!objects[object_index])
+		return (EXIT_FAILURE);
+	objects[object_index]->type = CYLINDER;
+	objects[object_index]->object = malloc(sizeof(t_cylinder));
+	if (!objects[object_index]->object)
+		return (EXIT_FAILURE);
+	index = ft_strlen("cy");
+	index += read_coordinate(&line[index], &((t_cylinder *) objects[object_index]->object)->position);
+	index += read_coordinate(&line[index], &((t_cylinder *) objects[object_index]->object)->rotation);
+	index += read_double(&line[index], &((t_cylinder *) objects[object_index]->object)->diameter);
+	index += read_double(&line[index], &((t_cylinder *) objects[object_index]->object)->height);
+	index += read_rgb(&line[index], &((t_cylinder *) objects[object_index]->object)->color);
 	return (EXIT_SUCCESS);
 }
 
-int	input_cylinder(const char *line, t_cylinder *cylinder)
-{
-	int	index;
-
-	index = 2;
-	while (line[index] == ' ')
-		index++;
-	index += read_coordinate(&line[index], &cylinder->position);
-	while (line[index] == ' ')
-		index++;
-	index += read_coordinate(&line[index], &cylinder->rotation);
-	while (line[index] == ' ')
-		index++;
-	index += read_double(&line[index], &cylinder->diameter);
-	while (line[index] == ' ')
-		index++;
-	index += read_double(&line[index], &cylinder->height);
-	while (line[index] == ' ')
-		index++;
-	index += read_RGB(&line[index], &cylinder->color);
-	return (EXIT_SUCCESS);
-}
-
-int	read_content(const char *line, t_objects *objects)
+int	read_content(const char *line, t_program *program, int *object_index, int *light_index)
 {
 	if (!ft_strncmp(line, "A ", 2))
-		input_light_ambient(line, objects->light_ambient);
+		return (input_light_ambient(line, &program->ambient));
 	else if (!ft_strncmp(line, "C ", 2))
-		input_camera(line, objects->camera);
+		return (input_camera(line, &program->viewport->camera, program));
 	else if (!ft_strncmp(line, "L ", 2))
-		input_light(line, objects->light);
+		return (input_light(line, program->lights, (*light_index)++));
 	else if (!ft_strncmp(line, "sp ", 3))
-		input_sphere(line, objects->sphere);
+		return (input_sphere(line, program->objects, (*object_index)++));
 	else if (!ft_strncmp(line, "pl ", 3))
-		input_plane(line, objects->plane);
+		return (input_plane(line, program->objects, (*object_index)++));
 	else if (!ft_strncmp(line, "cy ", 3))
-		input_cylinder(line, objects->cylinder);
-	else
+		return (input_cylinder(line, program->objects, (*object_index)++));
+	return (EXIT_FAILURE);
+}
+
+// TODO:the number of objects should taken from file
+int	init_program(t_program *program)
+{
+	program->lights = ft_calloc(5, sizeof(t_light *));
+	if (!program->lights)
 		return (EXIT_FAILURE);
+	program->objects = ft_calloc(5, sizeof(t_object *));
+	if (!program->objects)
+	{
+		free(program->lights);
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
-int	read_file(char *file, t_objects *objects)
+int	read_file(char *file, t_program *program)
 {
 	int		fd;
 	char	*line;
+	int		object_index;
+	int		light_index;
 
-	fd = open(file);
+	object_index = 0;
+	light_index = 0;
+	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("Failed to open file\n");
-		retrun (EXIT_FAILURE);
+		ft_putendl_fd("Failed to open file", STDERR_FILENO);
+		return (EXIT_FAILURE);
 	}
+	// TODO:validate and get number of objects
+	if (init_program(program))
+		return (EXIT_FAILURE);
 	line = get_next_line(fd);
 	while (line)
 	{
-		read_content(line, objects);	
+		read_content(line, program, &object_index, &light_index);
 		free(line);
 		line = get_next_line(fd);
 	}
+	close(fd);
 	return (EXIT_SUCCESS);
 }
