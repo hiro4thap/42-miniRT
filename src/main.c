@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:24:10 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/07 17:47:59 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/11 14:43:42 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,21 @@ t_vector	find_normal(t_object *o, t_vector incident_point, t_vector ray)
 		return (cylinder_normal((t_cylinder *) o->object, incident_point));
 }
 
+// TODO:the number of objects should taken from file
+static int	init_program(t_program *program)
+{
+	program->lights = ft_calloc(5, sizeof(t_light *));
+	if (!program->lights)
+		return (EXIT_FAILURE);
+	program->objects = ft_calloc(5, sizeof(t_object *));
+	if (!program->objects)
+	{
+		free(program->lights);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_program	program;
@@ -91,6 +106,8 @@ int	main(int argc, char *argv[])
 	program.viewport = &viewport;
 	mlx_key_hook(program.window, &input, &program);
 	mlx_hook(program.window, EVENT_DESTROY_NOTIFY, 0, &exit_program, &program);
+	if (init_program(&program))
+		return (EXIT_FAILURE);
 	render_frame(&program);
 	ft_printf("Rendered\n");
 	mlx_loop(program.mlx_pointer);
