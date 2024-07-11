@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:23:51 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/08 16:39:56 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/11 15:18:59 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,5 @@ int			input(int key, t_program *program);
 int			exit_program(t_program *program);
 
 t_color		*get_color(t_object *object);
-
-// load_scene.c
-void		load_lights(t_program *program);
-void		get_objects(t_program *program);
-void		init_camera(t_program *program);
 
 #endif

@@ -6,46 +6,13 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:24:10 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/11 14:43:42 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/11 15:20:44 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
 
 #include <math.h>
-
-/// @brief Checks if ray intersects with sphere, and populates ray with point
-/// of intersection and surface normal if so.
-/// @param sphere The sphere to test.
-/// @param camera The camera attached to the viewport.
-/// @param ray The ray from the camera origin through a pixel to the object.
-/// @return True if ray intersects with object, False otherwise.
-t_bool	sphere_intersection(t_sphere *sphere, t_camera *camera,
-	t_incident_ray *ray)
-{
-	double		grad;
-	double		distance;
-	double		alt_distance;
-	t_vector	cam_sphere_dif;
-
-	cam_sphere_dif = subtract(camera->position, sphere->position);
-	grad = pow(dot(ray->ray, cam_sphere_dif), 2.0)
-		- (pow(magnitude(cam_sphere_dif), 2.0)
-			- pow((sphere->diameter / 2.0), 2.0));
-	if (grad < 0)
-		return (FALSE);
-	distance = -(dot(ray->ray, cam_sphere_dif));
-	alt_distance = distance + sqrt(grad);
-	distance -= sqrt(grad);
-	distance = min(max(distance, 0), max(alt_distance, 0));
-	if (distance <= 0)
-		return (FALSE);
-	ray->incident_point = add(camera->position,
-			scalar_product(ray->ray, distance));
-	ray->surface_normal = normalise(
-			vector_in_direction(sphere->position, ray->incident_point));
-	return (TRUE);
-}
 
 /// @brief Provided an object, calls the appropriate intersection function and
 /// returns the distance to the objects. 
