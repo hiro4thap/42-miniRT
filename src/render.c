@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/11 15:18:04 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/11 15:54:46 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	generate_pixel(t_data *image, int i, int j, t_program *program)
 	if (0 < min_distance)
 	{
 		pixel_color = color_multiply(ray.object_color,
-			get_light(&ray, &program->ambient, program->lights));
+			get_light(&ray, &program->ambient, program->lights, program->objects));
 		set_pixel(image, i, j, pixel_color);
 	}
 }

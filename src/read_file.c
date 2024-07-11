@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:41:39 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/11 14:56:27 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/11 15:32:02 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	read_file(char *file, t_program *program)
 	line = get_next_line(fd);
 	while (line)
 	{
+		// TODO:handle the case of failure malloc (free memories as well)
 		read_content(line, program, &object_index, &light_index);
 		free(line);
 		line = get_next_line(fd);
