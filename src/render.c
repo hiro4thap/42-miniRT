@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/11 11:42:55 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/11 12:38:00 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	generate_pixel(t_data *image, int i, int j, t_program *program)
 		if (0 < distance && (min_distance == -1 || distance < min_distance))
 		{
 			min_distance = distance;
-			ray.incident_point = scalar_product(ray.ray, distance);
+			ray.incident_point = add(program->viewport->camera.position, scalar_product(ray.ray, distance));
 			ray.surface_normal = find_normal(program->objects[o],
 				ray.incident_point, ray.ray);
 			ray.object_color = *get_color(program->objects[o]);
