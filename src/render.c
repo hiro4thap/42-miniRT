@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/10 18:14:46 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/11 11:42:55 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ void	generate_pixel(t_data *image, int i, int j, t_program *program)
 	double			distance;
 	double			min_distance;
 
-	pixel = subtract(subtract(add(program->viewport->pixel_start,
+	pixel = subtract(add(program->viewport->pixel_start,
 				scalar_product(program->viewport->pixel_dx, i)),
-			scalar_product(program->viewport->pixel_dy, j)),
-		program->viewport->camera.position);
+			scalar_product(program->viewport->pixel_dy, j));
 	ray.ray = normalise(pixel);
 	distance = -1;
 	min_distance = -1;
