@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/11 15:54:46 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/12 12:10:25 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	generate_image(t_data *image, t_program *program)
 	int	i;
 	int	j;
 
-	read_file("test.rt", program);
 	j = 0;
 	while (j < program->viewport->window_height)
 	{

@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:41:39 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/11 15:32:02 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/12 12:13:38 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	read_file(char *file, t_program *program)
 		ft_putendl_fd("Failed to open file", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	// TODO:validate and get number of objects
 	// TODO:need to handle empty line
 	line = get_next_line(fd);
 	while (line)

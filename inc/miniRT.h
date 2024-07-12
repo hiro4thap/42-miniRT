@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:23:51 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/11 15:55:27 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/12 18:07:48 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "objects.h"
 # include "color.h"
 # include "read.h"
+# include "validate.h"
 
 typedef struct s_data
 {

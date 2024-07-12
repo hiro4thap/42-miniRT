@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:24:10 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/11 15:20:44 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/12 18:08:37 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,12 @@ int	main(int argc, char *argv[])
 	program.viewport = &viewport;
 	mlx_key_hook(program.window, &input, &program);
 	mlx_hook(program.window, EVENT_DESTROY_NOTIFY, 0, &exit_program, &program);
+	int	count_objects = 0;
+	int	count_lights = 0;
 	if (init_program(&program))
 		return (EXIT_FAILURE);
+	validate("test.rt", &count_objects, &count_lights);
+	read_file("test.rt", &program);
 	render_frame(&program);
 	ft_printf("Rendered\n");
 	mlx_loop(program.mlx_pointer);
