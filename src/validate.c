@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:59:10 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/12 18:00:34 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/12 18:34:57 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,11 +167,11 @@ t_bool	is_valid_camera(const char *line)
 	if (!temp)
 		return (err("invalid coordinate for camera view of point"));
 	index += temp;
-	index += validate_normalized_vector(&line[index]);
+	temp += validate_normalized_vector(&line[index]);
 	if (!temp)
 		return (err("invalid normalized vector for camera orientation"));
 	index += temp;
-	index += validate_double_value(&line[index], 0, 180);
+	temp += validate_double_value(&line[index], 0, 180);
 	if (!temp)
 		return (err("invalid double for camera field of view"));
 	index += temp;
@@ -334,12 +334,7 @@ int	validate(const char *file, int *count_objects, int *count_lights)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (!ft_strncmp(line, "\n", 2))
-		{
-			free(line);
-			continue ;
-		}
-		if (!is_valid_line(line, &count_ambient_light, &count_camera, count_lights, count_objects))
+		if (ft_strncmp(line, "\n", 2) && !is_valid_line(line, &count_ambient_light, &count_camera, count_objects, count_lights))
 		{
 			free(line);
 			return (EXIT_FAILURE);
