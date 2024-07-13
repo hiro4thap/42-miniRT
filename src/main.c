@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:24:10 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/12 18:08:37 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/13 14:22:26 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,19 @@ t_vector	find_normal(t_object *o, t_vector incident_point, t_vector ray)
 		return (cylinder_normal((t_cylinder *) o->object, incident_point));
 }
 
-// TODO:the number of objects should taken from file
-static int	init_program(t_program *program)
+static int	init_program(t_program *program, const char *file)
 {
-	program->lights = ft_calloc(5, sizeof(t_light *));
+	int	count_objects;
+	int	count_lights;
+
+	count_objects = 0;
+	count_lights = 0;
+	if (validate(file, &count_objects, &count_lights))
+		return (EXIT_FAILURE);
+	program->lights = ft_calloc(count_lights + 1, sizeof(t_light *));
 	if (!program->lights)
 		return (EXIT_FAILURE);
-	program->objects = ft_calloc(5, sizeof(t_object *));
+	program->objects = ft_calloc(count_objects + 1, sizeof(t_object *));
 	if (!program->objects)
 	{
 		free(program->lights);
@@ -63,8 +69,12 @@ int	main(int argc, char *argv[])
 	t_program	program;
 	t_viewport	viewport;
 
-	(void) argc;
-	(void) argv;
+	if (argc != 2)
+	{
+		ft_putendl_fd("Invalid arguments. Follow the usage below", STDERR_FILENO);
+		ft_putendl_fd("./miniRT [filename]", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	viewport.window_width = 640;
 	viewport.window_height = 480;
 	program.mlx_pointer = mlx_init();
@@ -73,12 +83,9 @@ int	main(int argc, char *argv[])
 	program.viewport = &viewport;
 	mlx_key_hook(program.window, &input, &program);
 	mlx_hook(program.window, EVENT_DESTROY_NOTIFY, 0, &exit_program, &program);
-	int	count_objects = 0;
-	int	count_lights = 0;
-	if (init_program(&program))
+	if (init_program(&program, argv[1]))
 		return (EXIT_FAILURE);
-	validate("test.rt", &count_objects, &count_lights);
-	read_file("test.rt", &program);
+	read_file(argv[1], &program);
 	render_frame(&program);
 	ft_printf("Rendered\n");
 	mlx_loop(program.mlx_pointer);

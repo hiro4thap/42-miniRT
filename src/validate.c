@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:59:10 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/12 18:34:57 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/13 14:23:56 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,14 +146,14 @@ t_bool	is_valid_light_ambient(const char *line)
 	index = ft_strlen("A");
 	temp = validate_double_value(&line[index], 0.0, 1.0);
 	if (!temp)
-		return (err("invalid double for ambient light ratio"));
+		return (err("Invalid double for ambient light ratio"));
 	index += temp;
 	temp = validate_rgb(&line[index]);
 	if (!temp)
-		return (err("invalid rgb for ambient light color"));
+		return (err("Invalid rgb for ambient light color"));
 	index += temp;
 	if (line[index] != '\n' && line[index] != '\0')
-		return (err("excessive information for ambient light"));
+		return (err("Excessive information for ambient light"));
 	return (TRUE);
 }
 
@@ -165,18 +165,18 @@ t_bool	is_valid_camera(const char *line)
 	index = ft_strlen("C");
 	temp = validate_coordinate(&line[index]);
 	if (!temp)
-		return (err("invalid coordinate for camera view of point"));
+		return (err("Invalid coordinate for camera view of point"));
 	index += temp;
 	temp += validate_normalized_vector(&line[index]);
 	if (!temp)
-		return (err("invalid normalized vector for camera orientation"));
+		return (err("Invalid normalized vector for camera orientation"));
 	index += temp;
 	temp += validate_double_value(&line[index], 0, 180);
 	if (!temp)
-		return (err("invalid double for camera field of view"));
+		return (err("Invalid double for camera field of view"));
 	index += temp;
 	if (line[index] != '\n' && line[index] != '\0')
-		return (err("excessive information for camera"));
+		return (err("Excessive information for camera"));
 	return (TRUE);
 }
 
@@ -188,14 +188,14 @@ t_bool	is_valid_light(const char *line)
 	index = ft_strlen("L");
 	temp = validate_coordinate(&line[index]);
 	if (!temp)
-		return (err("invalid coordinate for light position"));
+		return (err("Invalid coordinate for light position"));
 	index += temp;
 	temp = validate_double_value(&line[index], 0.0, 1.0);
 	if (!temp)
-		return (err("invallid double for light brightness"));
+		return (err("Invallid double for light brightness"));
 	index += temp;
 	if (line[index] != '\n' && line[index] != '\0')
-		return (err("excessive information for light"));
+		return (err("Excessive information for light"));
 	return (TRUE);
 }
 
@@ -207,18 +207,18 @@ t_bool	is_valid_sphere(const char *line)
 	index = ft_strlen("sp");
 	temp = validate_coordinate(&line[index]);
 	if (!temp)
-		return (err("invalid coordinate for sphere center"));
+		return (err("Invalid coordinate for sphere center"));
 	index += temp;
 	temp = validate_udouble(&line[index]);
 	if (!temp)
-		return (err("invalid double for sphere diameter"));
+		return (err("Invalid double for sphere diameter"));
 	index += temp;
 	temp = validate_rgb(&line[index]);
 	if (!temp)
-		return (err("invalid rgb for sphere color"));
+		return (err("Invalid rgb for sphere color"));
 	index += temp;
 	if (line[index] != '\n' && line[index] != '\0')
-		return (err("excessive information for sphere"));
+		return (err("Excessive information for sphere"));
 	return (TRUE);
 }
 
@@ -230,18 +230,18 @@ t_bool	is_valid_plane(const char *line)
 	index = ft_strlen("pl");
 	temp = validate_coordinate(&line[index]);
 	if (!temp)
-		return (err("invalid coordinate for plane point"));
+		return (err("Invalid coordinate for plane point"));
 	index += temp;
 	temp = validate_normalized_vector(&line[index]);
 	if (!temp)
-		return (err("invalid normalized vector for plane normal vector"));
+		return (err("Invalid normalized vector for plane normal vector"));
 	index += temp;
 	temp = validate_rgb(&line[index]);
 	if (!temp)
-		return (err("invalid rgb for plane color"));
+		return (err("Invalid rgb for plane color"));
 	index += temp;
 	if (line[index] != '\n' && line[index] != '\0')
-		return (err("excessive information for plane"));
+		return (err("Excessive information for plane"));
 	return (TRUE);
 }
 
@@ -253,26 +253,26 @@ t_bool	is_valid_cylinder(const char *line)
 	index = ft_strlen("cy");
 	temp = validate_coordinate(&line[index]);
 	if (!temp)
-		return (err("invalid coordinate for cylinder center"));
+		return (err("Invalid coordinate for cylinder center"));
 	index += temp;
 	temp = validate_normalized_vector(&line[index]);
 	if (!temp)
-		return (err("invalid normalized vector for cylinder axis"));
+		return (err("Invalid normalized vector for cylinder axis"));
 	index += temp;
 	temp = validate_udouble(&line[index]);
 	if (!temp)
-		return (err("invalid double for cylinder diameter"));
+		return (err("Invalid double for cylinder diameter"));
 	index += temp;
 	temp = validate_udouble(&line[index]);
 	if (!temp)
-		return (err("invalid double for cylinder height"));
+		return (err("Invalid double for cylinder height"));
 	index += temp;
 	temp = validate_rgb(&line[index]);
 	if (!temp)
-		return (err("invalid rgb for cylinder color"));
+		return (err("Invalid rgb for cylinder color"));
 	index += temp;
 	if (line[index] != '\n' && line[index] != '\0')
-		return (err("excessive information for cylinder"));
+		return (err("Excessive information for cylinder"));
 	return (TRUE);
 }
 
@@ -300,22 +300,19 @@ t_bool	is_valid_line(const char *line, int *count_ambient_light, int *count_came
 		(*count_objects)++;
 		return (TRUE);
 	}
-	return (err("File includes invalid identifier"));
+	return (err("File includes a invalid line"));
 }
 
-t_bool	validate_counts(int count_ambient_light, int count_camera,
-		int count_lights)
+t_bool	validate_counts(int count_ambient_light, int count_camera)
 {
 	if (count_ambient_light != 0 && count_ambient_light != 1)
 		return (err("Number of ambient light should be 0 or 1"));
 	if (count_camera != 1)
 		return (err("Number of camera should be 1"));
-	if (count_lights != 0 && count_lights != 1)
-		return (err("Number of light should be 0 or 1"));
 	return (TRUE);
 }
 
-int	validate(const char *file, int *count_objects, int *count_lights)
+int	validate(char *file, int *count_objects, int *count_lights)
 {
 	int		fd;
 	char	*line;
@@ -328,7 +325,8 @@ int	validate(const char *file, int *count_objects, int *count_lights)
 	if (fd < 0)
 	{
 		ft_putendl_fd("Error", STDERR_FILENO);
-		ft_putendl_fd("Failed to open file", STDERR_FILENO);
+		ft_putstr_fd("Failed to open file :", STDERR_FILENO);
+		ft_putendl_fd(file, STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	line = get_next_line(fd);
@@ -342,7 +340,7 @@ int	validate(const char *file, int *count_objects, int *count_lights)
 		free(line);
 		line = get_next_line(fd);
 	}
-	validate_counts(count_ambient_light, count_camera, *count_lights);
+	validate_counts(count_ambient_light, count_camera);
 	close(fd);
 	return (EXIT_SUCCESS);
 }
