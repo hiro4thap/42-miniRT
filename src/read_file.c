@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:41:39 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/12 12:13:38 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/14 15:52:16 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,16 @@ int	read_file(char *file, t_program *program)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putendl_fd("Failed to open file", STDERR_FILENO);
+		ft_putstr_fd("Failed to open file :", STDERR_FILENO);
+		ft_putendl_fd(file, STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	// TODO:need to handle empty line
 	line = get_next_line(fd);
 	while (line)
 	{
 		// TODO:handle the case of failure malloc (free memories as well)
-		read_content(line, program, &object_index, &light_index);
+		if (ft_strncmp(line, "\n", 2))
+			read_content(line, program, &object_index, &light_index);
 		free(line);
 		line = get_next_line(fd);
 	}

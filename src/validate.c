@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:59:10 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/13 14:23:56 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/14 15:55:31 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	validate_rgb(const char *rgb)
 {
 	int	index;
 	int	itr;
-	int	temp;
+	int	result;
 
 	index = 0;
 	itr = 0;
@@ -83,10 +83,10 @@ int	validate_rgb(const char *rgb)
 	{
 		if (rgb[index] == ',')
 			index++;
-		temp = validate_double_value(&rgb[index], 0, 255);
-		if (!temp)
+		result = validate_double_value(&rgb[index], 0, 255);
+		if (!result)
 			return (0);
-		index += temp;
+		index += result;
 		itr++;
 	}
 	return (index);
@@ -96,7 +96,7 @@ int	validate_coordinate(const char *coordinate)
 {
 	int	index;
 	int	itr;
-	int	temp;
+	int	result;
 
 	index = 0;
 	itr = 0;
@@ -106,10 +106,10 @@ int	validate_coordinate(const char *coordinate)
 	{
 		if (coordinate[index] == ',')
 			index++;
-		temp = validate_double(&coordinate[index]);
-		if (!temp)
+		result = validate_double(&coordinate[index]);
+		if (!result)
 			return (0);
-		index += temp;
+		index += result;
 		itr++;
 	}
 	return (index);
@@ -119,7 +119,7 @@ int	validate_normalized_vector(const char *normalized_vector)
 {
 	int	index;
 	int	itr;
-	int	temp;
+	int	result;
 
 	index = 0;
 	itr = 0;
@@ -129,10 +129,10 @@ int	validate_normalized_vector(const char *normalized_vector)
 	{
 		if (normalized_vector[index] == ',')
 			index++;
-		temp = validate_double_value(&normalized_vector[index], -1, 1);
-		if (!temp)
+		result = validate_double_value(&normalized_vector[index], -1, 1);
+		if (!result)
 			return (0);
-		index += temp;
+		index += result;
 		itr++;
 	}
 	return (index);
@@ -141,17 +141,17 @@ int	validate_normalized_vector(const char *normalized_vector)
 t_bool	is_valid_light_ambient(const char *line)
 {
 	int	index;
-	int	temp;
+	int	result;
 
 	index = ft_strlen("A");
-	temp = validate_double_value(&line[index], 0.0, 1.0);
-	if (!temp)
+	result = validate_double_value(&line[index], 0.0, 1.0);
+	if (!result)
 		return (err("Invalid double for ambient light ratio"));
-	index += temp;
-	temp = validate_rgb(&line[index]);
-	if (!temp)
+	index += result;
+	result = validate_rgb(&line[index]);
+	if (!result)
 		return (err("Invalid rgb for ambient light color"));
-	index += temp;
+	index += result;
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for ambient light"));
 	return (TRUE);
@@ -160,21 +160,21 @@ t_bool	is_valid_light_ambient(const char *line)
 t_bool	is_valid_camera(const char *line)
 {
 	int	index;
-	int	temp;
+	int	result;
 
 	index = ft_strlen("C");
-	temp = validate_coordinate(&line[index]);
-	if (!temp)
+	result = validate_coordinate(&line[index]);
+	if (!result)
 		return (err("Invalid coordinate for camera view of point"));
-	index += temp;
-	temp += validate_normalized_vector(&line[index]);
-	if (!temp)
+	index += result;
+	result += validate_normalized_vector(&line[index]);
+	if (!result)
 		return (err("Invalid normalized vector for camera orientation"));
-	index += temp;
-	temp += validate_double_value(&line[index], 0, 180);
-	if (!temp)
+	index += result;
+	result += validate_double_value(&line[index], 0, 180);
+	if (!result)
 		return (err("Invalid double for camera field of view"));
-	index += temp;
+	index += result;
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for camera"));
 	return (TRUE);
@@ -183,17 +183,17 @@ t_bool	is_valid_camera(const char *line)
 t_bool	is_valid_light(const char *line)
 {
 	int	index;
-	int	temp;
+	int	result;
 
 	index = ft_strlen("L");
-	temp = validate_coordinate(&line[index]);
-	if (!temp)
+	result = validate_coordinate(&line[index]);
+	if (!result)
 		return (err("Invalid coordinate for light position"));
-	index += temp;
-	temp = validate_double_value(&line[index], 0.0, 1.0);
-	if (!temp)
+	index += result;
+	result = validate_double_value(&line[index], 0.0, 1.0);
+	if (!result)
 		return (err("Invallid double for light brightness"));
-	index += temp;
+	index += result;
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for light"));
 	return (TRUE);
@@ -202,21 +202,21 @@ t_bool	is_valid_light(const char *line)
 t_bool	is_valid_sphere(const char *line)
 {
 	int	index;
-	int	temp;
+	int	result;
 
 	index = ft_strlen("sp");
-	temp = validate_coordinate(&line[index]);
-	if (!temp)
+	result = validate_coordinate(&line[index]);
+	if (!result)
 		return (err("Invalid coordinate for sphere center"));
-	index += temp;
-	temp = validate_udouble(&line[index]);
-	if (!temp)
+	index += result;
+	result = validate_udouble(&line[index]);
+	if (!result)
 		return (err("Invalid double for sphere diameter"));
-	index += temp;
-	temp = validate_rgb(&line[index]);
-	if (!temp)
+	index += result;
+	result = validate_rgb(&line[index]);
+	if (!result)
 		return (err("Invalid rgb for sphere color"));
-	index += temp;
+	index += result;
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for sphere"));
 	return (TRUE);
@@ -225,21 +225,21 @@ t_bool	is_valid_sphere(const char *line)
 t_bool	is_valid_plane(const char *line)
 {
 	int	index;
-	int	temp;
+	int	result;
 
 	index = ft_strlen("pl");
-	temp = validate_coordinate(&line[index]);
-	if (!temp)
+	result = validate_coordinate(&line[index]);
+	if (!result)
 		return (err("Invalid coordinate for plane point"));
-	index += temp;
-	temp = validate_normalized_vector(&line[index]);
-	if (!temp)
+	index += result;
+	result = validate_normalized_vector(&line[index]);
+	if (!result)
 		return (err("Invalid normalized vector for plane normal vector"));
-	index += temp;
-	temp = validate_rgb(&line[index]);
-	if (!temp)
+	index += result;
+	result = validate_rgb(&line[index]);
+	if (!result)
 		return (err("Invalid rgb for plane color"));
-	index += temp;
+	index += result;
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for plane"));
 	return (TRUE);
@@ -248,35 +248,36 @@ t_bool	is_valid_plane(const char *line)
 t_bool	is_valid_cylinder(const char *line)
 {
 	int	index;
-	int	temp;
+	int	result;
 
 	index = ft_strlen("cy");
-	temp = validate_coordinate(&line[index]);
-	if (!temp)
+	result = validate_coordinate(&line[index]);
+	if (!result)
 		return (err("Invalid coordinate for cylinder center"));
-	index += temp;
-	temp = validate_normalized_vector(&line[index]);
-	if (!temp)
+	index += result;
+	result = validate_normalized_vector(&line[index]);
+	if (!result)
 		return (err("Invalid normalized vector for cylinder axis"));
-	index += temp;
-	temp = validate_udouble(&line[index]);
-	if (!temp)
+	index += result;
+	result = validate_udouble(&line[index]);
+	if (!result)
 		return (err("Invalid double for cylinder diameter"));
-	index += temp;
-	temp = validate_udouble(&line[index]);
-	if (!temp)
+	index += result;
+	result = validate_udouble(&line[index]);
+	if (!result)
 		return (err("Invalid double for cylinder height"));
-	index += temp;
-	temp = validate_rgb(&line[index]);
-	if (!temp)
+	index += result;
+	result = validate_rgb(&line[index]);
+	if (!result)
 		return (err("Invalid rgb for cylinder color"));
-	index += temp;
+	index += result;
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for cylinder"));
 	return (TRUE);
 }
 
-t_bool	is_valid_line(const char *line, int *count_ambient_light, int *count_camera, int *count_objects, int *count_lights)
+t_bool	is_valid_line(const char *line, int *count_ambient_light,
+		int *count_camera, int *count_objects, int *count_lights)
 {
 	if (!ft_strncmp(line, "A ", 2) && is_valid_light_ambient(line))
 	{

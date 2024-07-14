@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:24:10 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/13 14:22:26 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/14 16:06:18 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_vector	find_normal(t_object *o, t_vector incident_point, t_vector ray)
 		return (cylinder_normal((t_cylinder *) o->object, incident_point));
 }
 
-static int	init_program(t_program *program, const char *file)
+static int	init_program(t_program *program, char *file)
 {
 	int	count_objects;
 	int	count_lights;
