@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:24:10 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/14 16:06:18 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/17 17:28:59 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		ft_putendl_fd("Invalid arguments. Follow the usage below", STDERR_FILENO);
+		ft_putendl_fd("Invalid arguments. Follow the usage", STDERR_FILENO);
 		ft_putendl_fd("./miniRT [filename]", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
@@ -89,7 +89,5 @@ int	main(int argc, char *argv[])
 	render_frame(&program);
 	ft_printf("Rendered\n");
 	mlx_loop(program.mlx_pointer);
-	mlx_destroy_window(program.mlx_pointer, program.window);
-	free(program.mlx_pointer);
 	return (EXIT_SUCCESS);
 }

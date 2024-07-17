@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:27:09 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/07 17:50:41 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/17 17:05:15 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,15 @@ t_vector	plane_normal(t_plane *plane, t_vector ray);
 double		to_cylinder_intersection(t_cylinder *cylinder, t_vector origin,
 				t_vector line);
 t_vector	cylinder_normal(t_cylinder *cylinder, t_vector incident_point);
+
+// cylinder_utils.c
+double		to_front_seam_intersection(t_cylinder *cylinder, t_vector origin,
+				t_vector line, double grad);
+double		to_rear_seam_intersection(t_cylinder *cylinder, t_vector origin,
+				t_vector line, double grad);
+double		to_top_cap_intersection(t_cylinder *cylinder, t_vector origin,
+				t_vector line);
+double		to_buttom_cap_intersection(t_cylinder *cylinder, t_vector origin,
+				t_vector line);
 
 #endif
