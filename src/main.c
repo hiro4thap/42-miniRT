@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:24:10 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/18 13:42:59 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/18 17:15:04 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@
 
 static int	init_program(t_program *program, char *file)
 {
-	int	count_objects;
-	int	count_lights;
+	t_counts	counts;
 
-	count_objects = 0;
-	count_lights = 0;
-	if (validate(file, &count_objects, &count_lights))
+	counts.count_ambient_light = 0;
+	counts.count_camera = 0;
+	counts.count_objects = 0;
+	counts.count_lights = 0;
+	if (validate_file(file, &counts))
 		return (EXIT_FAILURE);
-	program->lights = ft_calloc(count_lights + 1, sizeof(t_light *));
+	program->lights = ft_calloc(counts.count_lights + 1, sizeof(t_light *));
 	if (!program->lights)
 		return (EXIT_FAILURE);
-	program->objects = ft_calloc(count_objects + 1, sizeof(t_object *));
+	program->objects = ft_calloc(counts.count_objects + 1, sizeof(t_object *));
 	if (!program->objects)
 	{
 		free(program->lights);

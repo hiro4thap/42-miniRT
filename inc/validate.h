@@ -6,16 +6,24 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 18:06:59 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/17 15:25:45 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/18 17:16:02 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VALIDATE_H
 # define VALIDATE_H
 
+typedef struct s_counts
+{
+	int	count_ambient_light;
+	int	count_camera;
+	int	count_objects;
+	int	count_lights;
+}	t_counts;
+
 // validate.c
 t_bool	err(char *message);
-int		validate(char *file, int *count_objects, int *count_lights);
+int		validate_file(char *file, t_counts *counts);
 
 // validate_information.c
 int		validate_double(const char *number);
