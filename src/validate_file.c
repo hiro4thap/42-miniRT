@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:59:10 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/18 17:14:55 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/18 17:26:14 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	validate_file(char *file, t_counts *counts)
 		free(line);
 		line = get_next_line(fd);
 	}
-	validate_counts(counts);
 	close(fd);
+	if (!validate_counts(counts))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
