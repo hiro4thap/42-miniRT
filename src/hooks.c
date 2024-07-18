@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:57:07 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 12:28:48 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/18 12:52:59 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 int	input(int key, t_program *program)
 {
 	if (key == KEY_ESC)
-		exit_program(program);
-	return (0);
+		cleanup(program, EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 int	exit_program(t_program *program)
 {
-	(void)program;
-	exit(0);
+	return (cleanup(program, EXIT_SUCCESS));
 }

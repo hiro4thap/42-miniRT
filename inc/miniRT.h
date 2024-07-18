@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:23:51 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/17 15:42:26 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/18 13:47:11 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_program
 {
 	void			*mlx_pointer;
 	void			*window;
-	t_viewport		*viewport;
+	t_viewport		viewport;
 	t_object		**objects;
 	t_light			**lights;
 	t_light_ambient	ambient;
@@ -66,13 +66,12 @@ typedef struct s_incident_ray
 	t_color		object_color;
 }	t_incident_ray;
 
-// main.c
+// object_utils.c
 double		to_intersection(t_object *o, t_vector origin, t_vector ray);
 t_vector	find_normal(t_object *o, t_vector incident_point, t_vector ray);
 
 // render.c
 int			render_frame(t_program *program);
-void		generate_image(t_data *image, t_program *program);
 
 // light.c
 t_color		get_light(t_incident_ray *ray,
@@ -88,6 +87,7 @@ double		min(double a, double b);
 int			input(int key, t_program *program);
 int			exit_program(t_program *program);
 
-t_color		*get_color(t_object *object);
+// cleanup.c
+int			cleanup(t_program *program, int exit_status);
 
 #endif

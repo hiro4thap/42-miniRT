@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_camera.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 14:37:31 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/11 14:55:30 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/18 13:20:12 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int	read_camera(const char *line, t_camera *camera, t_program *program)
 	camera->right_axis = normalise(cross(camera->direction, up));
 	camera->up_axis = normalise(cross(camera->right_axis, camera->direction));
 	half_view_x = tan(camera->fov * M_PI / 180.0 / 2.0);
-	half_view_y = half_view_x * ((double)(program->viewport->window_height - 1))
-		/ ((double)(program->viewport->window_width - 1));
-	program->viewport->pixel_dx = scalar_product(camera->right_axis,
+	half_view_y = half_view_x * ((double)(program->viewport.window_height - 1))
+		/ ((double)(program->viewport.window_width - 1));
+	program->viewport.pixel_dx = scalar_product(camera->right_axis,
 			(2.0 * half_view_x)
-			/ ((double)(program->viewport->window_width - 1)));
-	program->viewport->pixel_dy = scalar_product(camera->up_axis,
+			/ ((double)(program->viewport.window_width - 1)));
+	program->viewport.pixel_dy = scalar_product(camera->up_axis,
 			(2.0 * half_view_y)
-			/ ((double)(program->viewport->window_height - 1)));
-	program->viewport->pixel_start = add(subtract(camera->direction,
+			/ ((double)(program->viewport.window_height - 1)));
+	program->viewport.pixel_start = add(subtract(camera->direction,
 				scalar_product(camera->right_axis, half_view_x)),
 			scalar_product(camera->up_axis, half_view_y));
 	return (EXIT_SUCCESS);

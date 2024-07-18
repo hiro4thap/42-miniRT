@@ -6,7 +6,7 @@
 #    By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/01 22:45:46 by jhughes           #+#    #+#              #
-#    Updated: 2024/07/17 17:03:49 by hiono            ###   ########.fr        #
+#    Updated: 2024/07/18 13:46:33 by jhughes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ C_FILES		= main.c vector.c vector_operations.c vector_helpers.c utils.c \
 				sphere.c plane.c cylinder.c cylinder_utils.c read_file.c \
 				read_information.c read_objects.c read_camera.c read_lights.c \
 				validate_file.c validate_information.c validate_camera.c \
-				validate_lights.c validate_objects.c
+				validate_lights.c validate_objects.c cleanup.c object_utils.c
 O_FILES		= $(C_FILES:.c=.o)
 C_BONUS		= $(addprefix $(BONUS_DIR), $(C_FILES:.c=_bonus.c))
 O_BONUS		= $(C_FILES:.c=_bonus.o) 
