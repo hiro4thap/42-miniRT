@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   definitions.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:26:05 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 14:46:01 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/18 14:58:24 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef int	t_bool;
 # ifndef __linux__
 
 #  define ON_LINUX 0
+
+int	mlx_destroy_display(void *mlx_ptr);
 
 enum e_keycode
 {
