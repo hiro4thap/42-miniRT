@@ -6,11 +6,26 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 14:37:31 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/18 13:20:12 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/20 12:02:38 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
+
+static void	set_upside(t_vector *up, t_camera *camera)
+{
+	t_vector	vector_to_positive_z;
+	t_vector	vector_to_negative_z;
+
+	set_vector_components(&vector_to_positive_z, 0, 0, 1.0);
+	set_vector_components(&vector_to_negative_z, 0, 0, -1.0);
+	if (equal(camera->direction, vector_to_positive_z))
+		set_vector_components(up, 0.0, -1.0, 0.0);
+	else if (equal(camera->direction, vector_to_negative_z))
+		set_vector_components(up, 0.0, 1.0, 0.0);
+	else
+		set_vector_components(up, 0.0, 0.0, 1.0);
+}
 
 int	read_camera(const char *line, t_camera *camera, t_program *program)
 {
@@ -23,7 +38,7 @@ int	read_camera(const char *line, t_camera *camera, t_program *program)
 	index += read_coordinate(&line[index], &camera->position);
 	index += read_coordinate(&line[index], &camera->direction);
 	index += read_double(&line[index], &camera->fov);
-	set_vector_components(&up, 0.0, 0.0, 1.0);
+	set_upside(&up, camera);
 	camera->right_axis = normalise(cross(camera->direction, up));
 	camera->up_axis = normalise(cross(camera->right_axis, camera->direction));
 	half_view_x = tan(camera->fov * M_PI / 180.0 / 2.0);

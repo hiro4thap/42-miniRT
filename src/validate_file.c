@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:59:10 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/18 17:26:14 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/19 17:03:08 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,14 @@ static int	fail_to_open_file(char *file)
 
 int	validate_file(char *file, t_counts *counts)
 {
-	int			fd;
-	char		*line;
+	int		fd;
+	char	*line;
 
+	if (ft_strlen(file) < 3 || ft_strncmp(".rt", &file[ft_strlen(file) - 3], 4))
+	{
+		err("Invalid file name. File's extension should be .rt");
+		return (EXIT_FAILURE);
+	}
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (fail_to_open_file(file));
@@ -84,8 +89,7 @@ int	validate_file(char *file, t_counts *counts)
 		free(line);
 		line = get_next_line(fd);
 	}
-	close(fd);
-	if (!validate_counts(counts))
+	if (close(fd) == -1 || !validate_counts(counts))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
