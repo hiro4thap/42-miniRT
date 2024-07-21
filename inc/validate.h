@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 18:06:59 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/18 17:16:02 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 14:52:43 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ t_bool	is_valid_camera(const char *line);
 t_bool	is_valid_sphere(const char *line);
 t_bool	is_valid_plane(const char *line);
 t_bool	is_valid_cylinder(const char *line);
+t_bool	is_valid_cone(const char *line);
 
 #endif

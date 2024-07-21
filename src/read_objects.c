@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 14:32:17 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/11 14:55:23 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 14:56:00 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,30 @@ int	read_cylinder(const char *line, t_object **objects, int object_index)
 			&((t_cylinder *) objects[object_index]->object)->height);
 	index += read_rgb(&line[index],
 			&((t_cylinder *) objects[object_index]->object)->color);
+	return (EXIT_SUCCESS);
+}
+
+int	read_cone(const char *line, t_object **objects, int object_index)
+{
+	int	index;
+
+	objects[object_index] = malloc(sizeof(t_object));
+	if (!objects[object_index])
+		return (EXIT_FAILURE);
+	objects[object_index]->type = CONE;
+	objects[object_index]->object = malloc(sizeof(t_cone));
+	if (!objects[object_index])
+		return (EXIT_FAILURE);
+	index = ft_strlen("cn");
+	index += read_coordinate(&line[index],
+			&((t_cone *) objects[object_index]->object)->position);
+	index += read_coordinate(&line[index],
+			&((t_cone *) objects[object_index]->object)->axis);
+	index += read_double(&line[index],
+			&((t_cone *) objects[object_index]->object)->diameter);
+	index += read_double(&line[index],
+			&((t_cone *) objects[object_index]->object)->height);
+	index += read_rgb(&line[index],
+			&((t_cone *) objects[object_index]->object)->color);
 	return (EXIT_SUCCESS);
 }

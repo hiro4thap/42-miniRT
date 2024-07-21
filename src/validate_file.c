@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:59:10 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/18 17:26:14 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 14:46:44 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static t_bool	is_valid_line(const char *line, t_counts *counts)
 	}
 	else if ((!ft_strncmp(line, "sp ", 3) && is_valid_sphere(line))
 		|| (!ft_strncmp(line, "pl ", 3) && is_valid_plane(line))
-		|| (!ft_strncmp(line, "cy ", 3) && is_valid_cylinder(line)))
+		|| (!ft_strncmp(line, "cy ", 3) && is_valid_cylinder(line))
+		|| (!ft_strncmp(line, "cn ", 3) && is_valid_cone(line)))
 	{
 		counts->count_objects++;
 		return (TRUE);

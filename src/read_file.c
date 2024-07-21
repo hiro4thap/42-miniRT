@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:41:39 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/18 13:17:30 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/21 14:46:17 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	read_content(const char *line, t_program *program,
 		return (read_plane(line, program->objects, (*object_index)++));
 	else if (!ft_strncmp(line, "cy ", 3))
 		return (read_cylinder(line, program->objects, (*object_index)++));
+	else if (!ft_strncmp(line, "cn ", 3))
+		return (read_cone(line, program->objects, (*object_index)++));
 	return (EXIT_FAILURE);
 }
 

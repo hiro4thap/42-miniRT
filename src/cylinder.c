@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:50:53 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/17 17:03:31 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 12:15:11 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static double	to_cylinder_seam_intersection(t_cylinder *cylinder,
 				cross(line, cylinder->rotation)), 2);
 	if (grad < 0)
 		return (-2);
-	to_front_seam = to_front_seam_intersection(cylinder, origin, line, grad);
+	to_front_seam = to_cy_front_seam_intersection(cylinder, origin, line, grad);
 	if (to_front_seam != -1)
 		return (to_front_seam);
-	to_rear_seam = to_rear_seam_intersection(cylinder, origin, line, grad);
+	to_rear_seam = to_cy_rear_seam_intersection(cylinder, origin, line, grad);
 	if (to_rear_seam != -1)
 		return (to_rear_seam);
 	return (-1);
@@ -45,8 +45,8 @@ static double	to_cylinder_cap_intersection(t_cylinder *cylinder,
 
 	if (dot(line, cylinder->rotation) == 0)
 		return (-1);
-	to_top = to_top_cap_intersection(cylinder, origin, line);
-	to_buttom = to_buttom_cap_intersection(cylinder, origin, line);
+	to_top = to_cy_top_cap_intersection(cylinder, origin, line);
+	to_buttom = to_cy_buttom_cap_intersection(cylinder, origin, line);
 	if (to_top == -1 && to_buttom == -1)
 		return (-1);
 	else if (to_buttom == -1)
