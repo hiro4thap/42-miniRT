@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 18:06:59 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/18 17:16:02 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 19:11:51 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,15 @@ typedef struct s_counts
 t_bool	err(char *message);
 int		validate_file(char *file, t_counts *counts);
 
-// validate_information.c
+// validate_double.c
 int		validate_double(const char *number);
 int		validate_udouble(const char *number);
 int		validate_double_value(const char *number, double min, double max);
+int		validate_double_info(const char *number);
+int		validate_double_value_info(const char *number, double min,
+			double max);
+
+// validate_information.c
 int		validate_rgb(const char *rgb);
 int		validate_coordinate(const char *coordinate);
 int		validate_normalized_vector(const char *normalized_vector);
