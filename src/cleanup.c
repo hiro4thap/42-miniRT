@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:50:27 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/19 09:01:22 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 08:41:53 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	cleanup(t_program *program, int exit_status)
 	if (program->objects)
 		program->objects = delete_objects(program->objects);
 	ft_printf("Destroying window... ");
+	mlx_clear_window(program->mlx_pointer, program->window);
 	mlx_destroy_window(program->mlx_pointer, program->window);
 	ft_printf("Done!\n");
 	if (ON_LINUX)
@@ -63,8 +64,8 @@ int	cleanup(t_program *program, int exit_status)
 		ft_printf("Destroying display... ");
 		mlx_destroy_display(program->mlx_pointer);
 		ft_printf("Done!\n");
+		free(program->mlx_pointer);
 	}
-	free(program->mlx_pointer);
 	ft_printf("Succesfully closed.\n");
 	exit(exit_status);
 	return (exit_status);
