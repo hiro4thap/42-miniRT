@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_objects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:22:03 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/21 14:51:58 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 19:38:13 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ t_bool	is_valid_cylinder(const char *line)
 	if (!validate_coordinate(&line[index]))
 		return (err("Invalid normalized vector for cylinder axis"));
 	index += validate_coordinate(&line[index]);
-	if (!validate_coordinate(&line[index]))
+	if (!validate_udouble(&line[index]))
 		return (err("Invalid double for cylinder diameter"));
-	index += validate_coordinate(&line[index]);
-	if (!validate_coordinate(&line[index]))
+	index += validate_udouble(&line[index]);
+	if (!validate_udouble(&line[index]))
 		return (err("Invalid double for cylinder height"));
-	index += validate_coordinate(&line[index]);
+	index += validate_udouble(&line[index]);
 	if (!validate_coordinate(&line[index]))
 		return (err("Invalid rgb for cylinder color"));
 	index += validate_coordinate(&line[index]);

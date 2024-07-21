@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 12:50:27 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/18 21:02:23 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/21 22:31:22 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,24 @@ static t_light	**delete_lights(t_light **lights)
 	return (NULL);
 }
 
-int    cleanup(t_program *program, int exit_status)
+int	cleanup(t_program *program, int exit_status)
 {
-    ft_printf("Closing...\n");
-    if (program->lights)
-        program->lights = delete_lights(program->lights);
-    if (program->objects)
-        program->objects = delete_objects(program->objects);
-    ft_printf("Destroying window... ");
-    mlx_destroy_window(program->mlx_pointer, program->window);
-    ft_printf("Done!\n");
-    if (ON_LINUX)
-    {
-        ft_printf("Destroying display... ");
-        mlx_destroy_display(program->mlx_pointer);
-        ft_printf("Done!\n");
-    }
-    free(program->mlx_pointer);
-    ft_printf("Succesfully closed.\n");
-    exit(exit_status);
-    return (exit_status);
+	ft_printf("Closing...\n");
+	if (program->lights)
+		program->lights = delete_lights(program->lights);
+	if (program->objects)
+		program->objects = delete_objects(program->objects);
+	ft_printf("Destroying window... ");
+	mlx_destroy_window(program->mlx_pointer, program->window);
+	ft_printf("Done!\n");
+	if (ON_LINUX)
+	{
+		ft_printf("Destroying display... ");
+		mlx_destroy_display(program->mlx_pointer);
+		ft_printf("Done!\n");
+	}
+	free(program->mlx_pointer);
+	ft_printf("Succesfully closed.\n");
+	exit(exit_status);
+	return (exit_status);
 }
