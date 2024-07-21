@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 14:34:29 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/11 14:52:19 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 19:33:36 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,16 @@ int	read_coordinate(const char *coordinate, t_vector *data)
 			index += read_double(&coordinate[index], &data->z);
 		itr++;
 	}
+	return (index);
+}
+
+int	read_flag(const char *flag, t_bool *data)
+{
+	int	index;
+
+	index = 0;
+	while (flag[index] == ' ')
+		index++;
+	*data = flag[index++];
 	return (index);
 }

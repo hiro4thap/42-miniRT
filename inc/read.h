@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:40:00 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/21 14:57:49 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 19:37:40 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	read_file(char *file, t_program *program);
 int	read_double(const char *number, double *data);
 int	read_rgb(const char *rgb, t_color *data);
 int	read_coordinate(const char *coordinate, t_vector *data);
+int	read_flag(const char *flag, t_bool *data);
 
 // read_objects.c
 int	read_sphere(const char *line, t_object **objects, int object_index);

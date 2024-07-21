@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:40:17 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/18 16:19:35 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 19:36:16 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,18 @@ int	validate_normalized_vector(const char *normalized_vector)
 	if ((vector.x == 0 && vector.y == 0 && vector.z == 0)
 		|| !equal(vector, normalise(vector)))
 		return (0);
+	return (index);
+}
+
+int	validate_flag(const char *flag)
+{
+	int	index;
+
+	index = 0;
+	while (flag[index] == ' ')
+		index++;
+	if (flag[index] != '0' && flag[index] != '1')
+		return (0);
+	index++;
 	return (index);
 }
