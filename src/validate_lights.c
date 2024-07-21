@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:21:34 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/17 15:26:39 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 19:22:29 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ t_bool	is_valid_light(const char *line)
 	result = validate_double_value(&line[index], 0.0, 1.0);
 	if (!result)
 		return (err("Invallid double for light brightness"));
+	index += result;
+	result = validate_rgb(&line[index]);
+	if (!result)
+		return (err("Invallid rgb for light color"));
 	index += result;
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for light"));

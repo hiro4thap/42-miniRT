@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:59:10 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/21 14:46:44 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 19:23:24 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ static t_bool	validate_counts(const t_counts *counts)
 		return (err("Number of ambient light should be 0 or 1"));
 	if (counts->count_camera != 1)
 		return (err("Number of camera should be 1"));
-	if (counts->count_lights != 0 && counts->count_lights != 1)
-		return (err("Number of light should be 0 or 1"));
 	return (TRUE);
 }
 
