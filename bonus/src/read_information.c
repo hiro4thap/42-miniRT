@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 14:34:29 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/21 19:33:36 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/22 14:11:13 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,24 @@ int	read_coordinate(const char *coordinate, t_vector *data)
 	return (index);
 }
 
-int	read_flag(const char *flag, t_bool *data)
+int	read_material_type(const char *flag, enum e_material *data)
 {
 	int	index;
 
 	index = 0;
 	while (flag[index] == ' ')
 		index++;
-	*data = flag[index++];
+	*data = flag[index++] - '0';
+	return (index);
+}
+
+int	read_flag(const char *flag, int *data)
+{
+	int	index;
+
+	index = 0;
+	while (flag[index] == ' ')
+		index++;
+	*data = flag[index++] - '0';
 	return (index);
 }

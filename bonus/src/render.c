@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 11:12:15 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 15:03:00 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 /// appropriate cast type.
 /// @param object The object to retrieve a color from.
 /// @return Pointer to color of object.
-static t_color	*get_color(t_object *object, t_incident_ray *ray)
+static t_color	get_color(t_object *object, t_incident_ray *ray)
 {
 	if (object->material_type == TEX_CHECKERBOARD)
-		uv_checkerboard(uvmap(ray->incident_point, object), 4);
+		return (uv_checkerboard(uvmap(ray->incident_point, object), 4));
 	if (object->type == SPHERE)
-		return (&((t_sphere *) object->object)->color);
+		return (((t_sphere *) object->object)->color);
 	if (object->type == PLANE)
-		return (&((t_plane *) object->object)->color);
+		return (((t_plane *) object->object)->color);
 	if (object->type == CYLINDER)
-		return (&((t_cylinder *) object->object)->color);
+		return (((t_cylinder *) object->object)->color);
 	if (object->type == CONE)
-		return (&((t_cone *) object->object)->color);
-	return (NULL);
+		return (((t_cone *) object->object)->color);
+	return (set_color(0, 0, 0));
 }
 
 static double	get_closest_object(t_incident_ray *ray,	t_program *program)
@@ -51,7 +51,7 @@ static double	get_closest_object(t_incident_ray *ray,	t_program *program)
 					scalar_product(ray->ray, distance));
 			ray->surface_normal = find_normal(program->objects[o],
 					ray->incident_point, ray->ray);
-			ray->object_color = *get_color(program->objects[o], ray);
+			ray->object_color = get_color(program->objects[o], ray);
 		}
 		o += 1;
 	}

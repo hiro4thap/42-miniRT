@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:40:17 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/22 09:33:37 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 15:03:11 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ int	validate_rgb(const char *rgb)
 		index++;
 	while (itr < 3)
 	{
-		if (rgb[index] == ',')
+		if (itr != 0)
+		{
+			if (rgb[index] != ',')
+				return (0);
 			index++;
-		result = validate_double_value(&rgb[index], 0, 255);
+		}
+		result = validate_double_value_info(&rgb[index], 0, 255);
 		if (!result)
 			return (0);
 		index += result;
@@ -62,24 +66,22 @@ int	validate_coordinate(const char *coordinate)
 	return (index);
 }
 
-// static t_bool	is_valid_normalized_vector_value(const char
-//	 *normalized_vector)
-// {
-// 	int			index;
-// 	t_vector	vector;
+static t_bool	is_valid_normalized_vector_value(const char *normalized_vector)
+{
+	int			index;
+	t_vector	vector;
 
-// 	index = 0;
-// 	index += read_coordinate(&normalized_vector[index], &vector);
-// 	return (!(vector.x == 0 && vector.y == 0 && vector.z == 0)
-// 		&& equal(vector, normalise(vector)));
-// }
+	index = 0;
+	index += read_coordinate(&normalized_vector[index], &vector);
+	return (!(vector.x == 0 && vector.y == 0 && vector.z == 0)
+		&& equal(vector, normalise(vector)));
+}
 
 int	validate_normalized_vector(const char *normalized_vector)
 {
 	int			index;
 	int			itr;
 	int			result;
-	t_vector	vector;
 
 	index = 0;
 	itr = 0;
@@ -87,20 +89,19 @@ int	validate_normalized_vector(const char *normalized_vector)
 		index++;
 	while (itr < 3)
 	{
-		if (normalized_vector[index] == ',')
+		if (itr != 0)
+		{
+			if (normalized_vector[index] != ',')
+				return (0);
 			index++;
-		result = validate_double_value(&normalized_vector[index], -1, 1);
+		}
+		result = validate_double_value_info(&normalized_vector[index], -1, 1);
 		if (!result)
 			return (0);
 		index += result;
 		itr++;
 	}
-	index = 0;
-	index += read_coordinate(&normalized_vector[index], &vector);
-	if ((vector.x == 0 && vector.y == 0 && vector.z == 0)
-		|| !equal(vector, normalise(vector)))
-		return (0);
-	return (index);
+	return (index * is_valid_normalized_vector_value(normalized_vector));
 }
 
 int	validate_flag(const char *flag)
@@ -113,5 +114,7 @@ int	validate_flag(const char *flag)
 	if (flag[index] != '0' && flag[index] != '1')
 		return (0);
 	index++;
+	if (flag[index] != ' ' && flag[index] != '\n' && flag[index] != '\0')
+		return (0);
 	return (index);
 }

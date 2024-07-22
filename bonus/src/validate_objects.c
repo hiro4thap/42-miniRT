@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:22:03 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/22 09:43:43 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 13:59:16 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ t_bool	is_valid_sphere(const char *line)
 	if (!result)
 		return (err("Invalid rgb for sphere color"));
 	index += result;
+	result = validate_flag(&line[index]);
+	if (!result)
+		return (err("Invalid flag for sphere material"));
+	index += result;
+	result = validate_flag(&line[index]);
+	if (!result)
+		return (err("Invalid flag for sphere bump map"));
+	index += result;
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for sphere"));
 	return (TRUE);
@@ -52,6 +60,14 @@ t_bool	is_valid_plane(const char *line)
 	result = validate_rgb(&line[index]);
 	if (!result)
 		return (err("Invalid rgb for plane color"));
+	index += result;
+	result = validate_flag(&line[index]);
+	if (!result)
+		return (err("Invalid flag for plane material"));
+	index += result;
+	result = validate_flag(&line[index]);
+	if (!result)
+		return (err("Invalid flag for plane bump map"));
 	index += result;
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for plane"));
@@ -78,6 +94,12 @@ t_bool	is_valid_cylinder(const char *line)
 	if (!validate_rgb(&line[index]))
 		return (err("Invalid rgb for cylinder color"));
 	index += validate_rgb(&line[index]);
+	if (!validate_flag(&line[index]))
+		return (err("Invalid flag for cylinder material"));
+	index += validate_flag(&line[index]);
+	if (!validate_flag(&line[index]))
+		return (err("Invalid flag for cylinder bump map"));
+	index += validate_flag(&line[index]);
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for cylinder"));
 	return (TRUE);
@@ -103,6 +125,12 @@ t_bool	is_valid_cone(const char *line)
 	if (!validate_coordinate(&line[index]))
 		return (err("Invalid rgb for cone color"));
 	index += validate_coordinate(&line[index]);
+	if (!validate_flag(&line[index]))
+		return (err("Invalid flag for cone material"));
+	index += validate_flag(&line[index]);
+	if (!validate_flag(&line[index]))
+		return (err("Invalid flag for cone bump map"));
+	index += validate_flag(&line[index]);
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for cone"));
 	return (TRUE);

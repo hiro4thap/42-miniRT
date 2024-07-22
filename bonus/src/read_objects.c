@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 14:32:17 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/21 14:56:00 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/22 15:02:43 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ int	read_sphere(const char *line, t_object **objects, int object_index)
 			&((t_sphere *) objects[object_index]->object)->diameter);
 	index += read_rgb(&line[index],
 			&((t_sphere *) objects[object_index]->object)->color);
+	index += read_material_type(&line[index],
+			&objects[object_index]->material_type);
+	index += read_flag(&line[index], &objects[object_index]->has_bump_map);
 	return (EXIT_SUCCESS);
 }
 
@@ -51,6 +54,9 @@ int	read_plane(const char *line, t_object **objects, int object_index)
 			&((t_plane *) objects[object_index]->object)->normal);
 	index += read_rgb(&line[index],
 			&((t_plane *) objects[object_index]->object)->color);
+	index += read_material_type(&line[index],
+			&objects[object_index]->material_type);
+	index += read_flag(&line[index], &objects[object_index]->has_bump_map);
 	return (EXIT_SUCCESS);
 }
 
@@ -76,6 +82,9 @@ int	read_cylinder(const char *line, t_object **objects, int object_index)
 			&((t_cylinder *) objects[object_index]->object)->height);
 	index += read_rgb(&line[index],
 			&((t_cylinder *) objects[object_index]->object)->color);
+	index += read_material_type(&line[index],
+			&objects[object_index]->material_type);
+	index += read_flag(&line[index], &objects[object_index]->has_bump_map);
 	return (EXIT_SUCCESS);
 }
 
@@ -101,5 +110,8 @@ int	read_cone(const char *line, t_object **objects, int object_index)
 			&((t_cone *) objects[object_index]->object)->height);
 	index += read_rgb(&line[index],
 			&((t_cone *) objects[object_index]->object)->color);
+	index += read_material_type(&line[index],
+			&objects[object_index]->material_type);
+	index += read_flag(&line[index], &objects[object_index]->has_bump_map);
 	return (EXIT_SUCCESS);
 }
