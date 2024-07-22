@@ -6,7 +6,7 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 14:38:26 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/11 14:55:36 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 19:25:02 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ int	read_light(const char *line, t_light **lights, int light_index)
 	index = ft_strlen("L");
 	index += read_coordinate(&line[index], &light->position);
 	index += read_double(&line[index], &light->brightness);
-	light->color = set_color(255, 255, 255);
+	index += read_rgb(&line[index], &light->color);
 	return (EXIT_SUCCESS);
 }

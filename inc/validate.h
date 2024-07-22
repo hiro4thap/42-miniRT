@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 18:06:59 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/21 19:11:51 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/22 08:55:19 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		validate_double_value_info(const char *number, double min,
 int		validate_rgb(const char *rgb);
 int		validate_coordinate(const char *coordinate);
 int		validate_normalized_vector(const char *normalized_vector);
+int		validate_flag(const char *flag);
 
 // validate_light.c
 t_bool	is_valid_light_ambient(const char *line);
@@ -49,5 +50,6 @@ t_bool	is_valid_camera(const char *line);
 t_bool	is_valid_sphere(const char *line);
 t_bool	is_valid_plane(const char *line);
 t_bool	is_valid_cylinder(const char *line);
+t_bool	is_valid_cone(const char *line);
 
 #endif

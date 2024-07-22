@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_double.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:17:59 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/21 19:11:23 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/22 09:33:19 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	validate_double(const char *number)
 		while (ft_isdigit(number[index]))
 			index++;
 	}
-	if (number[index] != ' ' && number[index] != '\n' && number[index] != '\0')
+	if (number[index] != ' ' && number[index] != '\n' && number[index] != '\0'
+		&& number[index] != ',')
 		return (0);
 	return (index);
 }

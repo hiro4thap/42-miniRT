@@ -6,7 +6,7 @@
 #    By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/01 22:45:46 by jhughes           #+#    #+#              #
-#    Updated: 2024/07/18 16:36:04 by hiono            ###   ########.fr        #
+#    Updated: 2024/07/21 16:47:50 by hiono            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ C_FILES		= main.c vector.c vector_operations.c vector_helpers.c utils.c \
 				read_information.c read_objects.c read_camera.c read_lights.c \
 				validate_file.c validate_information.c validate_camera.c \
 				validate_lights.c validate_objects.c validate_double.c \
-				cleanup.c object_utils.c
+				cleanup.c object_utils.c cone.c cone_utils.c
 O_FILES		= $(C_FILES:.c=.o)
 C_BONUS		= $(addprefix $(BONUS_DIR), $(C_FILES:.c=_bonus.c))
 O_BONUS		= $(C_FILES:.c=_bonus.o) 

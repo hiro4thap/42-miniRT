@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:27:09 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/17 17:05:15 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 17:19:44 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ enum e_objects
 {
 	SPHERE,
 	PLANE,
-	CYLINDER
+	CYLINDER,
+	CONE
 };
 
 typedef struct s_object
@@ -75,6 +76,15 @@ typedef struct s_cylinder
 	t_color		color;
 }	t_cylinder;
 
+typedef struct s_cone
+{
+	t_vector	position;
+	t_vector	axis;
+	double		diameter;
+	double		height;
+	t_color		color;
+}	t_cone;
+
 // sphere.c
 double		to_sphere_intersection(t_sphere *sphere, t_vector origin,
 				t_vector line);
@@ -91,13 +101,25 @@ double		to_cylinder_intersection(t_cylinder *cylinder, t_vector origin,
 t_vector	cylinder_normal(t_cylinder *cylinder, t_vector incident_point);
 
 // cylinder_utils.c
-double		to_front_seam_intersection(t_cylinder *cylinder, t_vector origin,
+double		to_cy_front_seam_intersection(t_cylinder *cylinder, t_vector origin,
 				t_vector line, double grad);
-double		to_rear_seam_intersection(t_cylinder *cylinder, t_vector origin,
+double		to_cy_rear_seam_intersection(t_cylinder *cylinder, t_vector origin,
 				t_vector line, double grad);
-double		to_top_cap_intersection(t_cylinder *cylinder, t_vector origin,
+double		to_cy_top_cap_intersection(t_cylinder *cylinder, t_vector origin,
 				t_vector line);
-double		to_buttom_cap_intersection(t_cylinder *cylinder, t_vector origin,
+double		to_cy_buttom_cap_intersection(t_cylinder *cylinder, t_vector origin,
 				t_vector line);
 
+// cone.c
+double		to_cone_intersection(t_cone *cone, t_vector origin, t_vector line);
+t_vector	cone_normal(t_cone *cone, t_vector incident_point);
+
+// cone_utils.c
+double		find_grad(t_cone *cone, t_vector origin, double a, double b);
+double		find_height(t_cone *cone, t_vector origin, t_vector line,
+				double distance);
+double		to_cn_top_cap_intersection(t_cone *cone, t_vector origin,
+				t_vector line);
+double		to_cn_buttom_cap_intersection(t_cone *cone, t_vector origin,
+				t_vector line);
 #endif

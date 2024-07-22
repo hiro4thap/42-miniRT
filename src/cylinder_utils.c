@@ -6,13 +6,13 @@
 /*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:00:13 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/17 17:04:16 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/21 12:15:32 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
 
-double	to_front_seam_intersection(t_cylinder *cylinder, t_vector origin,
+double	to_cy_front_seam_intersection(t_cylinder *cylinder, t_vector origin,
 		t_vector line, double grad)
 {
 	double	to_seam;
@@ -29,7 +29,7 @@ double	to_front_seam_intersection(t_cylinder *cylinder, t_vector origin,
 	return (-1);
 }
 
-double	to_rear_seam_intersection(t_cylinder *cylinder, t_vector origin,
+double	to_cy_rear_seam_intersection(t_cylinder *cylinder, t_vector origin,
 		t_vector line, double grad)
 {
 	double	to_seam;
@@ -46,7 +46,7 @@ double	to_rear_seam_intersection(t_cylinder *cylinder, t_vector origin,
 	return (-1);
 }
 
-double	to_top_cap_intersection(t_cylinder *cylinder, t_vector origin,
+double	to_cy_top_cap_intersection(t_cylinder *cylinder, t_vector origin,
 		t_vector line)
 {
 	t_bool	is_intersect_top;
@@ -67,7 +67,7 @@ double	to_top_cap_intersection(t_cylinder *cylinder, t_vector origin,
 	return (to_top);
 }
 
-double	to_buttom_cap_intersection(t_cylinder *cylinder, t_vector origin,
+double	to_cy_buttom_cap_intersection(t_cylinder *cylinder, t_vector origin,
 		t_vector line)
 {
 	t_bool	is_intersect_buttom;

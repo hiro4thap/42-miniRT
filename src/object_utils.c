@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:44:01 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/18 13:47:40 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/21 15:20:38 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ double	to_intersection(t_object *o, t_vector origin, t_vector ray)
 	else if (o->type == CYLINDER)
 		return (
 			to_cylinder_intersection((t_cylinder *) o->object, origin, ray));
+	else if (o->type == CONE)
+		return (to_cone_intersection((t_cone *) o->object, origin, ray));
 	return (-1);
 }
 
@@ -37,6 +39,8 @@ t_vector	find_normal(t_object *o, t_vector incident_point, t_vector ray)
 		return (sphere_normal((t_sphere *) o->object, incident_point));
 	else if (o->type == PLANE)
 		return (plane_normal((t_plane *) o->object, ray));
-	else
+	else if (o->type == CYLINDER)
 		return (cylinder_normal((t_cylinder *) o->object, incident_point));
+	else
+		return (cone_normal((t_cone *) o->object, incident_point));
 }

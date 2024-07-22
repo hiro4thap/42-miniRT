@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/18 13:40:22 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/21 15:15:34 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static t_color	*get_color(t_object *object)
 		return (&((t_plane *) object->object)->color);
 	if (object->type == CYLINDER)
 		return (&((t_cylinder *) object->object)->color);
+	if (object->type == CONE)
+		return (&((t_cone *) object->object)->color);
 	return (NULL);
 }
 

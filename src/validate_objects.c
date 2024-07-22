@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_objects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:22:03 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/19 13:00:37 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/22 09:04:30 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,30 @@ t_bool	is_valid_cylinder(const char *line)
 	index += validate_rgb(&line[index]);
 	if (line[index] != '\n' && line[index] != '\0')
 		return (err("Excessive information for cylinder"));
+	return (TRUE);
+}
+
+t_bool	is_valid_cone(const char *line)
+{
+	int	index;
+
+	index = ft_strlen("cn");
+	if (!validate_coordinate(&line[index]))
+		return (err("Invalid coordinate for cone point"));
+	index += validate_coordinate(&line[index]);
+	if (!validate_normalized_vector(&line[index]))
+		return (err("Invalid normalized vector for cone axis"));
+	index += validate_normalized_vector(&line[index]);
+	if (!validate_udouble(&line[index]))
+		return (err("Invalid double for cone diameter"));
+	index += validate_udouble(&line[index]);
+	if (!validate_udouble(&line[index]))
+		return (err("Invalid double for cone height"));
+	index += validate_udouble(&line[index]);
+	if (!validate_coordinate(&line[index]))
+		return (err("Invalid rgb for cone color"));
+	index += validate_coordinate(&line[index]);
+	if (line[index] != '\n' && line[index] != '\0')
+		return (err("Excessive information for cone"));
 	return (TRUE);
 }

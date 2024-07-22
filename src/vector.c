@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:23:47 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/02 23:22:20 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 09:16:12 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	set_vector_components(t_vector *vector, double x, double y, double z)
 	vector->y = y;
 	vector->z = z;
 }
-
-#include <stdio.h>
 
 void	print_vector(t_vector a)
 {

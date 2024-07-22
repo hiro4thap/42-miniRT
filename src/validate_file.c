@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hiono <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:59:10 by hiono             #+#    #+#             */
-/*   Updated: 2024/07/19 17:03:08 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/22 08:56:10 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static t_bool	is_valid_line(const char *line, t_counts *counts)
 	}
 	else if ((!ft_strncmp(line, "sp ", 3) && is_valid_sphere(line))
 		|| (!ft_strncmp(line, "pl ", 3) && is_valid_plane(line))
-		|| (!ft_strncmp(line, "cy ", 3) && is_valid_cylinder(line)))
+		|| (!ft_strncmp(line, "cy ", 3) && is_valid_cylinder(line))
+		|| (!ft_strncmp(line, "cn ", 3) && is_valid_cone(line)))
 	{
 		counts->count_objects++;
 		return (TRUE);
@@ -52,8 +53,6 @@ static t_bool	validate_counts(const t_counts *counts)
 		return (err("Number of ambient light should be 0 or 1"));
 	if (counts->count_camera != 1)
 		return (err("Number of camera should be 1"));
-	if (counts->count_lights != 0 && counts->count_lights != 1)
-		return (err("Number of light should be 0 or 1"));
 	return (TRUE);
 }
 
