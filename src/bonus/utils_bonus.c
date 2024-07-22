@@ -1,0 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/02 22:21:07 by jhughes           #+#    #+#             */
+/*   Updated: 2024/07/22 16:12:29 by jhughes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/bonus/miniRT_bonus.h"
+
+static int	get_pixel_color(t_color col)
+{
+	int	color;
+
+	color = get_blue(&col)
+		+ (get_green(&col) << 8)
+		+ (get_red(&col) << 16);
+	return (color);
+}
+
+void	set_pixel(t_data *data, int x, int y, t_color color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *) dst = get_pixel_color(color);
+}
+
+t_color	get_pixel(t_data *data, int x, int y)
+{
+	char			*dst;
+	unsigned int	col;
+	t_color			result;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	col = *(unsigned int *) dst;
+	result = set_color((col >> 16) & 255, (col >> 8) & 255, col & 255);
+	return (result);
+}
+
+double	max(double a, double b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+double	min(double a, double b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
