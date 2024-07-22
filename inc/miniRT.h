@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:23:51 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 09:16:33 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 09:39:42 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,41 +23,15 @@
 # endif
 # include "../lib/libft/inc/libft.h"
 
+# include "mlx_helpers.h"
 # include "definitions.h"
 # include "vector.h"
 # include "objects.h"
 # include "color.h"
 # include "read.h"
 # include "validate.h"
-
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_data;
-
-typedef struct s_viewport
-{
-	int			window_width;
-	int			window_height;
-	t_camera	camera;
-	t_vector	pixel_dx;
-	t_vector	pixel_dy;
-	t_vector	pixel_start;
-}	t_viewport;
-
-typedef struct s_program
-{
-	void			*mlx_pointer;
-	void			*window;
-	t_viewport		viewport;
-	t_object		**objects;
-	t_light			**lights;
-	t_light_ambient	ambient;
-}	t_program;
+# include "uvmap.h"
+# include "matrix.h"
 
 typedef struct s_incident_ray
 {

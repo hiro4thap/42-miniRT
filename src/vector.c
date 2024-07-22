@@ -6,11 +6,21 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:23:47 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 09:16:12 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 09:44:30 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vector.h"
+
+t_vector	vector_init(double x, double y, double z)
+{
+	t_vector	result;
+
+	result.x = x;
+	result.y = y;
+	result.z = z;
+	return (result);
+}
 
 void	set_vector(t_vector *vector, t_vector const ref)
 {

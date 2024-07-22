@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:25:34 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 09:16:22 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 09:40:24 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_vector
 }	t_vector;
 
 // vector.c
+t_vector	vector_init(double x, double y, double z);
 void		set_vector(t_vector *vector, t_vector const ref);
 void		set_vector_components(t_vector *vector,
 				double x, double y, double z);
