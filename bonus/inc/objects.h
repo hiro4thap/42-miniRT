@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:27:09 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 11:07:28 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 11:23:30 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "vector.h"
 # include "color.h"
 
+typedef struct s_data	t_data;
+
 enum e_objects
 {
 	SPHERE,
@@ -25,12 +27,18 @@ enum e_objects
 	CONE
 };
 
-enum e_texture
+enum e_material
 {
 	TEX_COLOR,
-	TEX_CHECKERBOARD,
-	TEX_TEXTURE
+	TEX_CHECKERBOARD
 };
+
+typedef struct s_texture
+{
+	t_data	*texture;
+	int		width;
+	int		height;
+}	t_texture;
 
 typedef struct s_object
 {
@@ -38,8 +46,7 @@ typedef struct s_object
 	void			*object;
 	int				has_bump_map;
 	t_texture		bump_map;
-	enum e_texture	texture_type;
-	t_texture		texture;
+	enum e_material	material_type;
 }	t_object;
 
 typedef struct s_light_ambient
@@ -95,13 +102,6 @@ typedef struct s_cone
 	double		height;
 	t_color		color;
 }	t_cone;
-
-typedef struct t_texture
-{
-	t_data	*texture;
-	int		width;
-	int		height;
-}	t_texture;
 
 // sphere.c
 double		to_sphere_intersection(t_sphere *sphere, t_vector origin,

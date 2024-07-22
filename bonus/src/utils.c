@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:21:07 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/05 13:40:40 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 11:21:39 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ void	set_pixel(t_data *data, int x, int y, t_color color)
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int *) dst = get_pixel_color(color);
+}
+
+t_color	get_pixel(t_data *data, int x, int y)
+{
+	char			*dst;
+	unsigned int	col;
+	t_color			result;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	col = *(unsigned int *) dst;
+	result = set_color((col >> 16) & 255, (col >> 8) & 255, col & 255);
+	return (result);
 }
 
 double	max(double a, double b)

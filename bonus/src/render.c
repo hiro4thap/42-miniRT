@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 11:07:31 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 11:12:15 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@
 /// @return Pointer to color of object.
 static t_color	*get_color(t_object *object, t_incident_ray *ray)
 {
-	if (object->texture_type == TEX_CHECKERBOARD)
+	if (object->material_type == TEX_CHECKERBOARD)
 		uv_checkerboard(uvmap(ray->incident_point, object), 4);
-	else if (object->texture_type == TEX_TEXTURE)
-		uv_texture(uvmap(ray->incident_point, object), &(object->texture));
 	if (object->type == SPHERE)
 		return (&((t_sphere *) object->object)->color);
 	if (object->type == PLANE)

@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 22:37:24 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 11:10:38 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 11:11:33 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,4 @@ t_vector	uv_bumpmap(t_uvpoint point, t_texture *bump_map)
 			0.05 * (get_red(&sample[2]) - get_red(&sample[3])) / 2.0);
 	result = normalise(cross(du, dv));
 	return (result);
-}
-
-t_color	uv_texture(t_uvpoint point, t_texture *texture)
-{
-	t_color	sample;
-
-	sample = get_pixel(texture,
-			point.u * texture->width,
-			point.v * texture->height);
-	return (sample);
 }
