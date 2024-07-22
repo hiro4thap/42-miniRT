@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 22:37:24 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 11:11:33 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 11:49:15 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ t_vector	uv_bumpmap(t_uvpoint point, t_texture *bump_map)
 	dv = vector_init(0, 1,
 			0.05 * (get_red(&sample[2]) - get_red(&sample[3])) / 2.0);
 	result = normalise(cross(du, dv));
+	result = mat3_vector_multiply(
+			mat3_matrix_multiply(point.basis, mat3_identity()), result);
 	return (result);
 }

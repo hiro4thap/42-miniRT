@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 08:56:06 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 11:11:37 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 11:41:35 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@
 
 typedef struct s_uvpoint
 {
-	double	u;
-	double	v;
+	double		u;
+	double		v;
+	t_matrix	basis;
 }	t_uvpoint;
 
 t_uvpoint	uvmap(t_vector coordnates, t_object *object);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:44:01 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/21 15:20:38 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/22 12:13:39 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,21 @@ double	to_intersection(t_object *o, t_vector origin, t_vector ray)
 
 t_vector	find_normal(t_object *o, t_vector incident_point, t_vector ray)
 {
+	t_vector	normal;
+	// t_vector	bump_normal;
+
 	if (o->type == SPHERE)
-		return (sphere_normal((t_sphere *) o->object, incident_point));
+		normal = sphere_normal((t_sphere *) o->object, incident_point);
 	else if (o->type == PLANE)
-		return (plane_normal((t_plane *) o->object, ray));
+		normal = plane_normal((t_plane *) o->object, ray);
 	else if (o->type == CYLINDER)
-		return (cylinder_normal((t_cylinder *) o->object, incident_point));
+		normal = cylinder_normal((t_cylinder *) o->object, incident_point);
 	else
-		return (cone_normal((t_cone *) o->object, incident_point));
+		normal = cone_normal((t_cone *) o->object, incident_point);
+	// if (o->has_bump_map)
+	// {
+	// 	bump_normal = uv_bumpmap(uvmap(incident_point, o), &o->bump_map);
+	// 	return (bump_normal);
+	// }
+	return (normal);
 }
