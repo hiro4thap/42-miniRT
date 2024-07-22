@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 22:27:28 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/21 22:33:15 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 11:07:31 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,22 @@
 /// appropriate cast type.
 /// @param object The object to retrieve a color from.
 /// @return Pointer to color of object.
-// static t_color	*get_color(t_object *object)
-// {
-// 	if (object->type == SPHERE)
-// 		return (&((t_sphere *) object->object)->color);
-// 	if (object->type == PLANE)
-// 		return (&((t_plane *) object->object)->color);
-// 	if (object->type == CYLINDER)
-// 		return (&((t_cylinder *) object->object)->color);
-// 	if (object->type == CONE)
-// 		return (&((t_cone *) object->object)->color);
-// 	return (NULL);
-// }
+static t_color	*get_color(t_object *object, t_incident_ray *ray)
+{
+	if (object->texture_type == TEX_CHECKERBOARD)
+		uv_checkerboard(uvmap(ray->incident_point, object), 4);
+	else if (object->texture_type == TEX_TEXTURE)
+		uv_texture(uvmap(ray->incident_point, object), &(object->texture));
+	if (object->type == SPHERE)
+		return (&((t_sphere *) object->object)->color);
+	if (object->type == PLANE)
+		return (&((t_plane *) object->object)->color);
+	if (object->type == CYLINDER)
+		return (&((t_cylinder *) object->object)->color);
+	if (object->type == CONE)
+		return (&((t_cone *) object->object)->color);
+	return (NULL);
+}
 
 static double	get_closest_object(t_incident_ray *ray,	t_program *program)
 {
@@ -49,11 +53,7 @@ static double	get_closest_object(t_incident_ray *ray,	t_program *program)
 					scalar_product(ray->ray, distance));
 			ray->surface_normal = find_normal(program->objects[o],
 					ray->incident_point, ray->ray);
-			// if (program->objects[o]->type != PLANE)
-				ray->object_color = uv_checkerboard(
-					uvmap(ray->incident_point, program->objects[o]), 4);
-			// else
-			// 	ray->object_color = *get_color(program->objects[o]);
+			ray->object_color = *get_color(program->objects[o], ray);
 		}
 		o += 1;
 	}
