@@ -6,12 +6,12 @@
 #    By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/01 22:45:46 by jhughes           #+#    #+#              #
-#    Updated: 2024/07/22 16:15:37 by jhughes          ###   ########.fr        #
+#    Updated: 2024/07/22 17:02:16 by hiono            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= miniRT
-BONUS		= bonus
+BONUS		= miniRT_bonus
 
 COMPILER	= cc
 CFLAGS		= -Wall -Wextra -Werror -MMD $(INCL)
@@ -69,15 +69,17 @@ clean:
 fclean: clean
 	rm -f $(LIB_DIR)/$(LIBFT_DIR)/$(LIBFT)
 	rm -f $(LIB_DIR)/$(LIBMLX_DIR)/$(LIBMLX)
-	rm -f $(NAME) $(LIBFT) $(LIBMLX)
+	rm -f $(NAME) $(BONUS) $(LIBFT) $(LIBMLX)
 
 re: fclean all
+
+bonus: $(BONUS)
 
 $(NAME): $(LIBMLX) $(LIBFT) $(O_DEP)
 	$(COMPILER) $(CFLAGS) $(O_DEP) $(INCL_LIB) $(MLX_FLAGS) -o $(NAME)
 
 $(BONUS): $(LIBMLX) $(LIBFT) $(O_BONUS_DEP)
-	$(COMPILER) $(CFLAGS) -Iinc/bonus $(O_BONUS_DEP) $(INCL_LIB) $(MLX_FLAGS) -o $(NAME)
+	$(COMPILER) $(CFLAGS) -Iinc/bonus $(O_BONUS_DEP) $(INCL_LIB) $(MLX_FLAGS) -o $@
 
 libft: $(LIBFT)
 
@@ -105,4 +107,4 @@ $(O_DIR)%.o: $(SRC_DIR)$(BONUS_DIR)%.c
 	@mkdir -p $(O_DIR)
 	$(COMPILER) -c $(CFLAGS) $< -o $@ $(INCLUDES)
 
-.PHONY: all clean fclean re $(BONUS)
+.PHONY: all clean fclean re bonus
