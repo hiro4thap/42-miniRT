@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhughes <jhughes@student.42adel.org.au>    +#+  +:+       +#+        */
+/*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:24:10 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/18 17:15:04 by hiono            ###   ########.fr       */
+/*   Updated: 2024/07/22 15:44:12 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,35 @@ static int	setup_window(t_program *program)
 	return (EXIT_SUCCESS);
 }
 
+static int	load_images(t_program *program)
+{
+	t_object	**objects;
+	int			o;
+	t_texture	*image;
+
+	o = 0;
+	objects = program->objects;
+	while (objects[o] != NULL)
+	{
+		if (objects[o]->has_bump_map)
+		{
+			image = &objects[o]->bump_map;
+			image->texture = mlx_xpm_file_to_image(
+					program->mlx_pointer, "img/heightmap.xpm",
+					&image->width, &image->height);
+			if (image->texture == NULL)
+				return (EXIT_FAILURE);
+			image->texture->addr = mlx_get_data_addr(
+					image->texture,
+					&image->texture->bits_per_pixel,
+					&image->texture->line_length,
+					&image->texture->endian);
+		}
+		o += 1;
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_program	program;
@@ -65,6 +94,8 @@ int	main(int argc, char *argv[])
 	if (init_program(&program, argv[1]) == EXIT_FAILURE)
 		cleanup(&program, EXIT_FAILURE);
 	if (read_file(argv[1], &program) == EXIT_FAILURE)
+		cleanup(&program, EXIT_FAILURE);
+	if (load_images(&program) == EXIT_FAILURE)
 		cleanup(&program, EXIT_FAILURE);
 	render_frame(&program);
 	ft_printf("Rendered\n");

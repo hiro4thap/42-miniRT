@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:44:01 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 12:13:39 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 15:26:10 by jhughes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ double	to_intersection(t_object *o, t_vector origin, t_vector ray)
 t_vector	find_normal(t_object *o, t_vector incident_point, t_vector ray)
 {
 	t_vector	normal;
-	// t_vector	bump_normal;
+	t_vector	bump_normal;
 
 	if (o->type == SPHERE)
 		normal = sphere_normal((t_sphere *) o->object, incident_point);
@@ -46,10 +46,10 @@ t_vector	find_normal(t_object *o, t_vector incident_point, t_vector ray)
 		normal = cylinder_normal((t_cylinder *) o->object, incident_point);
 	else
 		normal = cone_normal((t_cone *) o->object, incident_point);
-	// if (o->has_bump_map)
-	// {
-	// 	bump_normal = uv_bumpmap(uvmap(incident_point, o), &o->bump_map);
-	// 	return (bump_normal);
-	// }
+	if (o->has_bump_map)
+	{
+		bump_normal = uv_bumpmap(uvmap(incident_point, o), &o->bump_map);
+		return (bump_normal);
+	}
 	return (normal);
 }
