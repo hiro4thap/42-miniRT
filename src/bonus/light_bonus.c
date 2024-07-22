@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 16:56:20 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 16:12:29 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 16:50:35 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,7 @@ t_color	get_light(t_incident_ray *ray,
 	{
 		difuse = get_difuse(ray, *lights, objects);
 		specular = set_color(0, 0, 0);
-		if (SPECULAR_ON)
-			specular = get_specular(ray, *lights);
+		specular = get_specular(ray, *lights);
 		light = color_add(color_add(ambient, difuse), specular);
 		result = color_add(result, light);
 		lights++;

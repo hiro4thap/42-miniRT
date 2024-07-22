@@ -6,7 +6,7 @@
 /*   By: jhughes <jhughes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 22:37:24 by jhughes           #+#    #+#             */
-/*   Updated: 2024/07/22 16:12:29 by jhughes          ###   ########.fr       */
+/*   Updated: 2024/07/22 16:38:50 by hiono            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_color	uv_checkerboard(t_uvpoint point, int scale)
 	reduced_coord.v = fmod(point.v, ratio) * scale;
 	if ((reduced_coord.u < 0.5 && reduced_coord.v < 0.5)
 		|| (reduced_coord.u >= 0.5 && reduced_coord.v >= 0.5))
-		result = set_color(0, 0, 0);
+		result = set_color(15, 15, 15);
 	else
 		result = set_color(255, 255, 255);
 	return (result);
